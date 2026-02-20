@@ -74,8 +74,6 @@ export function SiteFooter() {
             </span>
             <ul className="mt-4 space-y-3">
               {[
-                { label: "Privacy", href: "#" },
-                { label: "Terms", href: "#" },
                 { label: "Apache 2.0 License", href: "https://github.com/elophanto/EloPhanto/blob/main/LICENSE" },
               ].map((link) => (
                 <li key={link.label}>
@@ -96,9 +94,6 @@ export function SiteFooter() {
         <div className="mt-16 flex items-center justify-between">
           <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground/40">
             &copy; {new Date().getFullYear()} EloPhanto
-          </span>
-          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-muted-foreground/40">
-            Miami, FL
           </span>
         </div>
       </div>
