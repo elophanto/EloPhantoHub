@@ -1,65 +1,173 @@
-import Image from "next/image";
+import Link from "next/link"
+import Image from "next/image"
+import { InstallCommand } from "@/components/install-command"
 
-export default function Home() {
+const features = [
+  { label: "Local-first", detail: "Runs entirely on your machine. Your data stays yours." },
+  { label: "Multi-channel", detail: "CLI, Telegram, Discord, Slack — one agent, all channels." },
+  { label: "Browser control", detail: "Real Chrome automation with 47 tools using your existing sessions." },
+  { label: "Self-evolving", detail: "Learns from tasks, builds its own tools, evolves its identity." },
+  { label: "Skill ecosystem", detail: "29 bundled skills + community hub with one-command install." },
+  { label: "Agent email", detail: "Own inbox with dual provider support — AgentMail or SMTP/IMAP." },
+  { label: "Crypto payments", detail: "Agent wallet on Base with spending limits and audit trail." },
+  { label: "Document analysis", detail: "PDFs, images, DOCX, XLSX, PPTX, EPUB with OCR and RAG." },
+]
+
+const stats = [
+  { value: "29", label: "Skills" },
+  { value: "90+", label: "Tools" },
+  { value: "4", label: "Channels" },
+  { value: "47", label: "Browser Tools" },
+]
+
+function ArchLayer({ label, sublabel, muted = false }: { label: string; sublabel?: string; muted?: boolean }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className={`border border-border/50 px-6 py-5 text-center ${muted ? "bg-card/50" : ""}`}>
+      <span className="block font-mono text-[11px] uppercase tracking-[0.2em]">
+        {label}
+      </span>
+      {sublabel && (
+        <span className="mt-1.5 block font-mono text-[10px] tracking-[0.1em] text-muted-foreground">
+          {sublabel}
+        </span>
+      )}
     </div>
-  );
+  )
+}
+
+function VerticalLine() {
+  return <div className="mx-auto h-8 w-px bg-border/40" />
+}
+
+export default function HomePage() {
+  return (
+    <div className="flex flex-col">
+      {/* Hero */}
+      <section className="relative min-h-screen overflow-hidden">
+        {/* Geometric circles */}
+        <div className="geo-circle right-[10%] top-[15%] h-[500px] w-[500px] hidden lg:block" />
+        <div className="geo-circle right-[15%] top-[20%] h-[300px] w-[300px] hidden lg:block" />
+
+        <div className="relative mx-auto max-w-7xl px-6 pt-28 sm:px-8 sm:pt-32 lg:px-12 lg:pt-36">
+          {/* Crop mark label */}
+          <div className="crop-marks inline-block p-8">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Self-evolving AI Agent
+            </span>
+          </div>
+
+          <div className="mt-8 max-w-3xl">
+            <h1 className="text-4xl font-light leading-[1.1] tracking-tight sm:text-5xl lg:text-7xl">
+              A self-evolving<br />
+              AI agent that lives<br />
+              on <em className="font-serif italic">your machine.</em>
+            </h1>
+          </div>
+
+          <p className="mt-10 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Local-first, multi-channel, browser-capable.
+            <br />
+            Learns as it works.
+          </p>
+
+          <div className="mt-12 max-w-xl">
+            <InstallCommand command="git clone https://github.com/elophanto/EloPhanto.git && cd EloPhanto && ./setup.sh" />
+          </div>
+
+          <div className="mt-10 flex items-center gap-8">
+            <Link
+              href="/download"
+              className="font-mono text-xs uppercase tracking-[0.15em] border-b border-foreground pb-1 transition-opacity hover:opacity-60"
+            >
+              Get Started
+            </Link>
+            <Link
+              href="/hub"
+              className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100"
+              style={{ opacity: 0.5 }}
+            >
+              Browse Skills
+            </Link>
+          </div>
+        </div>
+
+        {/* Bottom stats */}
+        <div className="mx-auto max-w-7xl px-6 pb-20 pt-32 sm:px-8 lg:px-12">
+          <div className="flex flex-wrap gap-12 sm:gap-20">
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <span className="block font-mono text-3xl font-light tabular-nums sm:text-4xl">
+                  {stat.value}
+                </span>
+                <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="border-t border-border/50">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="mb-16">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Capabilities
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-4">
+            {features.map((feature) => (
+              <div
+                key={feature.label}
+                className="bg-background p-6 sm:p-8"
+              >
+                <h3 className="font-mono text-xs uppercase tracking-[0.1em]">
+                  {feature.label}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {feature.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Architecture */}
+      <section className="border-t border-border/50">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="grid items-start gap-16 lg:grid-cols-2">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                Architecture
+              </span>
+              <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
+                Runs locally,<br />connects everywhere.
+              </h2>
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
+                EloPhanto runs on your machine, routes through multiple LLM
+                providers, and connects to your channels — all while keeping
+                your data private.
+              </p>
+            </div>
+
+            {/* Architecture Diagram */}
+            <div className="flex flex-col items-center lg:pt-8">
+              <div className="w-full max-w-md space-y-0">
+                <ArchLayer label="Communication" sublabel="CLI &middot; Telegram &middot; Discord &middot; Slack" />
+                <VerticalLine />
+                <ArchLayer label="Intelligence" sublabel="Multi-provider LLM routing &middot; Context management" />
+                <VerticalLine />
+                <ArchLayer label="Execution" sublabel="90+ tools &middot; Browser automation &middot; 29 skills" />
+                <VerticalLine />
+                <ArchLayer label="Persistence" sublabel="Knowledge &middot; Identity &middot; Memory &middot; Evolution" muted />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  )
 }
