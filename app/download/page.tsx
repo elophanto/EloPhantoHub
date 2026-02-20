@@ -96,24 +96,22 @@ export default function DownloadPage() {
 
           <TabsContent value="macos" className="mt-8">
             <p className="mb-6 text-sm text-muted-foreground">
-              Requires Python 3.10+ and Node.js 18+. Install via Homebrew if needed.
+              Requires Python 3.12+, <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-foreground">uv</a> package manager, and Node.js 24+ LTS.
             </p>
             <div className="space-y-4">
               <InstallCommand label="1. Clone" command="git clone https://github.com/elophanto/EloPhanto.git && cd EloPhanto" />
               <InstallCommand label="2. Setup" command="./setup.sh" />
-              <InstallCommand label="3. Initialize" command="elophanto init" />
-              <InstallCommand label="4. Start" command="elophanto chat" />
+              <InstallCommand label="3. Start" command="./start.sh" />
             </div>
           </TabsContent>
 
           <TabsContent value="linux" className="mt-8">
             <p className="mb-6 text-sm text-muted-foreground">
-              Tested on Ubuntu 22.04+, Debian 12+, and Fedora 38+. Requires Python 3.10+ and Node.js 18+.
+              Tested on Ubuntu 22.04+, Debian 12+, and Fedora 38+. Requires Python 3.12+, <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-foreground">uv</a>, and Node.js 24+ LTS.
             </p>
             <div className="space-y-4">
-              <InstallCommand label="1. Prerequisites" command="sudo apt update && sudo apt install -y python3 python3-pip nodejs npm git" />
-              <InstallCommand label="2. Clone and setup" command="git clone https://github.com/elophanto/EloPhanto.git && cd EloPhanto && ./setup.sh" />
-              <InstallCommand label="3. Run" command="elophanto init && elophanto chat" />
+              <InstallCommand label="1. Clone and setup" command="git clone https://github.com/elophanto/EloPhanto.git && cd EloPhanto && ./setup.sh" />
+              <InstallCommand label="2. Start" command="./start.sh" />
             </div>
           </TabsContent>
 
@@ -124,7 +122,7 @@ export default function DownloadPage() {
             <div className="space-y-4">
               <InstallCommand label="1. Install WSL2" command="wsl --install" />
               <InstallCommand label="2. Inside WSL" command="git clone https://github.com/elophanto/EloPhanto.git && cd EloPhanto && ./setup.sh" />
-              <InstallCommand label="3. Run" command="elophanto init && elophanto chat" />
+              <InstallCommand label="3. Start" command="./start.sh" />
             </div>
           </TabsContent>
         </Tabs>
@@ -136,12 +134,9 @@ export default function DownloadPage() {
           Quick Start
         </span>
         <p className="mb-6 text-sm text-muted-foreground">
-          After installation, initialize your agent and start a conversation.
+          After setup, just start the agent.
         </p>
-        <div className="space-y-4">
-          <InstallCommand command="elophanto init" />
-          <InstallCommand command="elophanto chat" />
-        </div>
+        <InstallCommand command="./start.sh" />
       </div>
     </div>
   )
