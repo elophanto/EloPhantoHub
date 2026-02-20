@@ -76,7 +76,7 @@ export function SiteFooter() {
               {[
                 { label: "Privacy", href: "#" },
                 { label: "Terms", href: "#" },
-                { label: "MIT License", href: "https://github.com/elophanto/EloPhanto/blob/main/LICENSE" },
+                { label: "Apache 2.0 License", href: "https://github.com/elophanto/EloPhanto/blob/main/LICENSE" },
               ].map((link) => (
                 <li key={link.label}>
                   <a
