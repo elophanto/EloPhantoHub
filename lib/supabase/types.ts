@@ -1,3 +1,12 @@
+export interface AgentCensus {
+  agent_id: string
+  version: string | null
+  platform: string | null
+  python_version: string | null
+  first_seen_at: string
+  last_seen_at: string
+}
+
 export interface AgentKey {
   id: string
   agent_id: string

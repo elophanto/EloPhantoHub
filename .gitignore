@@ -39,6 +39,11 @@ yarn-error.log*
 # reference files (not part of the website)
 _sources_/
 core_README.md
+WEBSITE.md
+
+# database (private)
+*.sql
+/supabase/
 
 # typescript
 *.tsbuildinfo

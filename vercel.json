@@ -1,4 +1,11 @@
 {
+  "rewrites": [
+    {
+      "source": "/v1/:path*",
+      "has": [{ "type": "host", "value": "api.elophanto.com" }],
+      "destination": "/api/:path*"
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/push-dataset",
