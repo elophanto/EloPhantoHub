@@ -6,18 +6,20 @@ const features = [
   { label: "Local-first", detail: "Runs entirely on your machine. Your data stays yours." },
   { label: "Multi-channel", detail: "CLI, Telegram, Discord, Slack — one agent, all channels." },
   { label: "Browser control", detail: "Real Chrome automation with 47 tools using your existing sessions." },
+  { label: "MCP tool servers", detail: "Connect any MCP server — filesystem, GitHub, databases, Slack, and more." },
   { label: "Self-evolving", detail: "Learns from tasks, builds its own tools, evolves its identity." },
-  { label: "Skill ecosystem", detail: "29 bundled skills + community hub with one-command install." },
+  { label: "Skill ecosystem", detail: "28 bundled skills + community hub with one-command install." },
   { label: "Agent email", detail: "Own inbox with dual provider support — AgentMail or SMTP/IMAP." },
   { label: "Crypto payments", detail: "Agent wallet on Base with spending limits and audit trail." },
   { label: "Document analysis", detail: "PDFs, images, DOCX, XLSX, PPTX, EPUB with OCR and RAG." },
 ]
 
 const stats = [
-  { value: "29", label: "Skills" },
-  { value: "90+", label: "Tools" },
+  { value: "28", label: "Skills" },
+  { value: "95+", label: "Tools" },
   { value: "4", label: "Channels" },
-  { value: "47", label: "Browser Tools" },
+  { value: "MCP", label: "Support" },
+  { value: "23", label: "Docs" },
 ]
 
 function ArchLayer({ label, sublabel, muted = false }: { label: string; sublabel?: string; muted?: boolean }) {
@@ -160,7 +162,7 @@ export default function HomePage() {
                 <VerticalLine />
                 <ArchLayer label="Intelligence" sublabel="Multi-provider LLM routing &middot; Context management" />
                 <VerticalLine />
-                <ArchLayer label="Execution" sublabel="90+ tools &middot; Browser automation &middot; 29 skills" />
+                <ArchLayer label="Execution" sublabel="95+ tools &middot; Browser automation &middot; MCP &middot; 28 skills" />
                 <VerticalLine />
                 <ArchLayer label="Persistence" sublabel="Knowledge &middot; Identity &middot; Memory &middot; Evolution" muted />
               </div>

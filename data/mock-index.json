@@ -563,6 +563,7 @@
     { "id": "email", "label": "Email", "icon": "mail" },
     { "id": "data", "label": "Data", "icon": "database" },
     { "id": "security", "label": "Security", "icon": "shield" },
-    { "id": "design", "label": "Design", "icon": "palette" }
+    { "id": "design", "label": "Design", "icon": "palette" },
+    { "id": "integration", "label": "Integration", "icon": "plug" }
   ]
 }
