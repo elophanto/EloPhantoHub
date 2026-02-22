@@ -43,11 +43,34 @@ export async function POST(request: NextRequest) {
     }))
 
     // Push to HuggingFace (if token is set)
+    const HF_REPO = "EloPhanto/dataset"
     let hfCommitSha: string | null = null
     if (process.env.HF_TOKEN) {
       try {
+        // Ensure dataset repo exists (create if not)
+        const repoCheck = await fetch(
+          `https://huggingface.co/api/datasets/${HF_REPO}`,
+          { headers: { Authorization: `Bearer ${process.env.HF_TOKEN}` } }
+        )
+        if (repoCheck.status === 404) {
+          await fetch("https://huggingface.co/api/repos/create", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${process.env.HF_TOKEN}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: "dataset",
+              type: "dataset",
+              organization: "EloPhanto",
+              private: false,
+            }),
+          })
+        }
+
+        // Push batch file
         const response = await fetch(
-          "https://huggingface.co/api/datasets/EloPhanto/dataset/commit/main",
+          `https://huggingface.co/api/datasets/${HF_REPO}/commit/main`,
           {
             method: "POST",
             headers: {
