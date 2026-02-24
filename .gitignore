@@ -40,6 +40,7 @@ yarn-error.log*
 _sources_/
 core_README.md
 WEBSITE.md
+USE-CASES.md
 
 # database (private)
 *.sql

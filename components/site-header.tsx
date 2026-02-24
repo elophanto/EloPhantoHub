@@ -10,6 +10,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 
 const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/use-cases", label: "Use Cases" },
   { href: "/hub", label: "Hub" },
   { href: "/download", label: "Download" },
   { href: "/docs", label: "Docs", disabled: true },

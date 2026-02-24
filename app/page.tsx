@@ -137,6 +137,50 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Use Cases Teaser */}
+      <section className="border-t border-border/50">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="mb-16">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Use Cases
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { number: "01", title: "Autonomous Web Presence", summary: "Creates accounts, builds profiles, participates in communities — over days and weeks." },
+              { number: "02", title: "Development Team", summary: "Spawns coding agents in isolated worktrees with cross-model review." },
+              { number: "03", title: "Self-Building", summary: "Can't do something yet? It builds the capability, tests it, and deploys." },
+              { number: "04", title: "Cross-Platform Intel", summary: "Orchestrates across email, browser, documents, and messaging channels." },
+              { number: "05", title: "Revenue Operations", summary: "Finds gigs, delivers work, collects payment — full freelance pipeline." },
+              { number: "06", title: "Compound Intelligence", summary: "Every task makes it better at the next one. Memory that compounds." },
+            ].map((uc) => (
+              <div key={uc.number} className="bg-background p-6 sm:p-8">
+                <span className="font-mono text-2xl font-extralight tabular-nums text-border">
+                  {uc.number}
+                </span>
+                <h3 className="mt-3 font-mono text-xs uppercase tracking-[0.1em]">
+                  {uc.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {uc.summary}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10">
+            <Link
+              href="/use-cases"
+              className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100"
+              style={{ opacity: 0.5 }}
+            >
+              View all use cases &rarr;
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Architecture */}
       <section className="border-t border-border/50">
         <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
