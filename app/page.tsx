@@ -4,20 +4,21 @@ import { InstallCommand } from "@/components/install-command"
 
 const features = [
   { label: "Local-first", detail: "Runs entirely on your machine. Your data stays yours." },
-  { label: "Multi-channel", detail: "CLI, Telegram, Discord, Slack — one agent, all channels." },
-  { label: "Browser control", detail: "Real Chrome automation with 47 tools using your existing sessions." },
-  { label: "MCP tool servers", detail: "Connect any MCP server — filesystem, GitHub, databases, Slack, and more." },
+  { label: "Multi-channel", detail: "CLI, Web, Telegram, Discord, Slack — one agent, all channels." },
+  { label: "Browser control", detail: "Real Chrome automation with 49 tools using your existing sessions." },
+  { label: "MCP tool servers", detail: "Connect any MCP server — filesystem, GitHub, databases, Slack, and more. Agent manages setup through conversation." },
   { label: "Self-evolving", detail: "Learns from tasks, builds its own tools, evolves its identity." },
   { label: "Skill ecosystem", detail: "28 bundled skills + community hub with one-command install." },
-  { label: "Agent email", detail: "Own inbox with dual provider support — AgentMail or SMTP/IMAP." },
-  { label: "Crypto payments", detail: "Agent wallet on Base with spending limits and audit trail." },
+  { label: "Agent email", detail: "Own inbox with dual provider support — AgentMail cloud or your SMTP/IMAP server." },
+  { label: "Crypto payments", detail: "Agent wallet on Base with spending limits, audit trail, and preview-before-execute." },
+  { label: "Web dashboard", detail: "10-page real-time monitoring UI — chat, tools, knowledge, mind, schedule, channels, settings, history." },
   { label: "Document analysis", detail: "PDFs, images, DOCX, XLSX, PPTX, EPUB with OCR and RAG." },
 ]
 
 const stats = [
   { value: "28", label: "Skills" },
-  { value: "95+", label: "Tools" },
-  { value: "4", label: "Channels" },
+  { value: "107+", label: "Tools" },
+  { value: "5", label: "Channels" },
   { value: "MCP", label: "Support" },
   { value: "23", label: "Docs" },
 ]
@@ -119,7 +120,7 @@ export default function HomePage() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-5">
             {features.map((feature) => (
               <div
                 key={feature.label}
@@ -202,11 +203,11 @@ export default function HomePage() {
             {/* Architecture Diagram */}
             <div className="flex flex-col items-center lg:pt-8">
               <div className="w-full max-w-md space-y-0">
-                <ArchLayer label="Communication" sublabel="CLI &middot; Telegram &middot; Discord &middot; Slack" />
+                <ArchLayer label="Communication" sublabel="CLI &middot; Web &middot; Telegram &middot; Discord &middot; Slack" />
                 <VerticalLine />
                 <ArchLayer label="Intelligence" sublabel="Multi-provider LLM routing &middot; Context management" />
                 <VerticalLine />
-                <ArchLayer label="Execution" sublabel="95+ tools &middot; Browser automation &middot; MCP &middot; 28 skills" />
+                <ArchLayer label="Execution" sublabel="107+ tools &middot; Browser automation &middot; MCP &middot; 28 skills" />
                 <VerticalLine />
                 <ArchLayer label="Persistence" sublabel="Knowledge &middot; Identity &middot; Memory &middot; Evolution" muted />
               </div>
