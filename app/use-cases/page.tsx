@@ -118,6 +118,18 @@ const useCases = [
   },
   {
     number: "10",
+    title: "Always-On Background Mind",
+    summary:
+      "EloPhanto doesn't go idle when you stop talking to it.",
+    description:
+      "Between conversations, its autonomous mind runs a background thinking loop — evaluating what needs doing, executing, and scheduling its own next wakeup. It checks the scratchpad from its last cycle, handles pending tasks, posts content, follows up on emails, scans for opportunities.",
+    detail:
+      "You come back, type a message. The mind pauses instantly. Your conversation gets full priority — no shared context, no interference. When you're done, the mind picks up where it left off. \"/mind\" shows status: cycles today, spend, last action, next wakeup, scratchpad.",
+    agentic:
+      "This isn't a cron job. Each wakeup, the LLM evaluates a priority stack — active goals, revenue opportunities, pending tasks, capability gaps, presence growth — and decides what's highest-value right now. It controls its own sleep interval based on urgency. It's a background worker with judgment, not a timer with scripts.",
+  },
+  {
+    number: "11",
     title: "Compound Intelligence",
     summary:
       "Every task EloPhanto completes makes it better at the next one.",

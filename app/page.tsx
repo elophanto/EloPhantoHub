@@ -153,7 +153,7 @@ export default function HomePage() {
               { number: "03", title: "Self-Building", summary: "Can't do something yet? It builds the capability, tests it, and deploys." },
               { number: "04", title: "Cross-Platform Intel", summary: "Orchestrates across email, browser, documents, and messaging channels." },
               { number: "05", title: "Revenue Operations", summary: "Finds gigs, delivers work, collects payment — full freelance pipeline." },
-              { number: "06", title: "Compound Intelligence", summary: "Every task makes it better at the next one. Memory that compounds." },
+              { number: "06", title: "Background Mind", summary: "Runs autonomously between conversations. Evaluates, executes, sleeps, repeats." },
             ].map((uc) => (
               <div key={uc.number} className="bg-background p-6 sm:p-8">
                 <span className="font-mono text-2xl font-extralight tabular-nums text-border">
