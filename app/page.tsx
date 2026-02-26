@@ -73,8 +73,22 @@ export default function HomePage() {
             Learns as it works.
           </p>
 
-          <div className="mt-12 max-w-xl">
+          <div className="mt-12 max-w-xl space-y-4">
             <InstallCommand command="git clone https://github.com/elophanto/EloPhanto.git && cd EloPhanto && ./setup.sh" />
+            <div className="grid grid-cols-2 gap-px border border-border/50 bg-border/50">
+              <div className="bg-background px-5 pt-4 pb-5">
+                <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground mb-3">
+                  Terminal
+                </span>
+                <InstallCommand command="./start.sh" />
+              </div>
+              <div className="bg-background px-5 pt-4 pb-5">
+                <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground mb-3">
+                  Web Dashboard
+                </span>
+                <InstallCommand command="./start.sh --web" />
+              </div>
+            </div>
           </div>
 
           <div className="mt-10 flex items-center gap-8">
