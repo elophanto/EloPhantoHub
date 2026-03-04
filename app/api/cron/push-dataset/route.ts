@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerSupabaseClient } from "@/lib/supabase/server"
 
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     // Verify cron secret
     const authHeader = request.headers.get("authorization")
@@ -42,63 +42,82 @@ export async function POST(request: NextRequest) {
       created_at: row.created_at,
     }))
 
-    // Push to HuggingFace (if token is set)
+    // Push to HuggingFace (token is required)
     const HF_REPO = "EloPhanto/dataset"
-    let hfCommitSha: string | null = null
-    if (process.env.HF_TOKEN) {
-      try {
-        // Ensure dataset repo exists (create if not)
-        const repoCheck = await fetch(
-          `https://huggingface.co/api/datasets/${HF_REPO}`,
-          { headers: { Authorization: `Bearer ${process.env.HF_TOKEN}` } }
-        )
-        if (repoCheck.status === 404) {
-          await fetch("https://huggingface.co/api/repos/create", {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${process.env.HF_TOKEN}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name: "dataset",
-              type: "dataset",
-              organization: "EloPhanto",
-              private: false,
-            }),
-          })
-        }
-
-        // Push batch file
-        const response = await fetch(
-          `https://huggingface.co/api/datasets/${HF_REPO}/commit/main`,
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${process.env.HF_TOKEN}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              commit_message: `Add ${datasetRows.length} training examples`,
-              operations: [
-                {
-                  operation: "create",
-                  path: `data/batch_${Date.now()}.jsonl`,
-                  content: datasetRows
-                    .map((row) => JSON.stringify(row))
-                    .join("\n"),
-                },
-              ],
-            }),
-          }
-        )
-        if (response.ok) {
-          const result = await response.json()
-          hfCommitSha = result.commit?.sha || null
-        }
-      } catch (e) {
-        console.error("HF push error:", e)
-      }
+    if (!process.env.HF_TOKEN) {
+      return NextResponse.json(
+        { error: "HF_TOKEN not configured" },
+        { status: 500 }
+      )
     }
+
+    // Ensure dataset repo exists (create if not)
+    const repoCheck = await fetch(
+      `https://huggingface.co/api/datasets/${HF_REPO}`,
+      { headers: { Authorization: `Bearer ${process.env.HF_TOKEN}` } }
+    )
+    if (repoCheck.status === 404) {
+      await fetch("https://huggingface.co/api/repos/create", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.HF_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: "dataset",
+          type: "dataset",
+          organization: "EloPhanto",
+          private: false,
+        }),
+      })
+    }
+
+    // Build NDJSON payload for HF commit API
+    const fileContent = datasetRows
+      .map((row) => JSON.stringify(row))
+      .join("\n")
+    const encodedContent = Buffer.from(fileContent).toString("base64")
+
+    const ndjsonLines = [
+      JSON.stringify({
+        key: "header",
+        value: {
+          summary: `Add ${datasetRows.length} training examples`,
+        },
+      }),
+      JSON.stringify({
+        key: "file",
+        value: {
+          content: encodedContent,
+          path: `data/batch_${Date.now()}.jsonl`,
+          encoding: "base64",
+        },
+      }),
+    ].join("\n")
+
+    const response = await fetch(
+      `https://huggingface.co/api/datasets/${HF_REPO}/commit/main`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.HF_TOKEN}`,
+          "Content-Type": "application/x-ndjson",
+        },
+        body: ndjsonLines,
+      }
+    )
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error("HF push failed:", response.status, errorText)
+      return NextResponse.json(
+        { error: "HuggingFace push failed", details: errorText },
+        { status: 502 }
+      )
+    }
+
+    const result = await response.json()
+    const hfCommitSha = result.commitOid || result.commit?.sha || null
 
     // Get previous dataset size
     const { data: lastLog } = await supabase
@@ -117,7 +136,7 @@ export async function POST(request: NextRequest) {
       hf_commit_sha: hfCommitSha,
     })
 
-    // Mark buffer rows as pushed
+    // Mark buffer rows as pushed only after successful HF push
     const ids = pending.map((row) => row.id)
     await supabase
       .from("collect_buffer")
