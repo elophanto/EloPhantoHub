@@ -36,16 +36,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-# reference files (not part of the website)
-_sources_/
-core_README.md
-WEBSITE.md
-USE-CASES.md
-
-# database (private)
-*.sql
-/supabase/
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
