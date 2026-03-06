@@ -1,15 +1,9 @@
-import type { NextConfig } from "next"
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  async redirects() {
-    return [
-      {
-        source: "/github",
-        destination: "https://github.com/elophanto/EloPhanto",
-        permanent: true,
-      },
-    ]
+  images: {
+    formats: ['image/avif', 'image/webp'],
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
