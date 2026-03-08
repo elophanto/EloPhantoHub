@@ -72,11 +72,25 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    // Build NDJSON payload for HF commit API
-    const fileContent = datasetRows
+    // Download existing train.jsonl and append new rows
+    const TRAIN_PATH = "data/train.jsonl"
+    let existingContent = ""
+    const dlResp = await fetch(
+      `https://huggingface.co/datasets/${HF_REPO}/resolve/main/${TRAIN_PATH}`,
+      { headers: { Authorization: `Bearer ${process.env.HF_TOKEN}` }, redirect: "follow" }
+    )
+    if (dlResp.ok) {
+      existingContent = await dlResp.text()
+      if (existingContent && !existingContent.endsWith("\n")) {
+        existingContent += "\n"
+      }
+    }
+
+    const newLines = datasetRows
       .map((row) => JSON.stringify(row))
       .join("\n")
-    const encodedContent = Buffer.from(fileContent).toString("base64")
+    const mergedContent = existingContent + newLines + "\n"
+    const encodedContent = Buffer.from(mergedContent).toString("base64")
 
     const ndjsonLines = [
       JSON.stringify({
@@ -89,7 +103,7 @@ export async function GET(request: NextRequest) {
         key: "file",
         value: {
           content: encodedContent,
-          path: `data/batch_${Date.now()}.jsonl`,
+          path: TRAIN_PATH,
           encoding: "base64",
         },
       }),
