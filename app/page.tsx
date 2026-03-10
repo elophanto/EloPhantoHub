@@ -3,24 +3,28 @@ import Image from "next/image"
 import { InstallCommand } from "@/components/install-command"
 
 const features = [
-  { label: "Local-first", detail: "Runs entirely on your machine. Your data stays yours." },
-  { label: "Multi-channel", detail: "CLI, Web, Telegram, Discord, Slack — one agent, all channels." },
-  { label: "Browser control", detail: "Real Chrome automation with 49 tools using your existing sessions." },
-  { label: "MCP tool servers", detail: "Connect any MCP server — filesystem, GitHub, databases, Slack, and more. Agent manages setup through conversation." },
-  { label: "Self-evolving", detail: "Learns from tasks, builds its own tools, evolves its identity." },
-  { label: "Skill ecosystem", detail: "28 bundled skills + community hub with one-command install." },
-  { label: "Agent email", detail: "Own inbox with dual provider support — AgentMail cloud or your SMTP/IMAP server." },
-  { label: "Crypto payments", detail: "Agent wallet on Base with spending limits, audit trail, and preview-before-execute." },
-  { label: "Web dashboard", detail: "10-page real-time monitoring UI — chat, tools, knowledge, mind, schedule, channels, settings, history." },
-  { label: "Document analysis", detail: "PDFs, images, DOCX, XLSX, PPTX, EPUB with OCR and RAG." },
+  { label: "Local-first", detail: "Nothing leaves your machine. No cloud dependency, no data sharing, no API middlemen. You own everything." },
+  { label: "Multi-channel", detail: "Talk to it from your terminal, browser, IDE, or phone. It replies on Telegram, Discord, Slack — wherever you are." },
+  { label: "VS Code extension", detail: "Sees your open file, your selection, your errors. Fixes code in context without copy-pasting anything." },
+  { label: "Browser control", detail: "Logs into sites, fills forms, scrapes pages, navigates across tabs — using your real Chrome sessions. Undetectable." },
+  { label: "MCP tool servers", detail: "Talks to your filesystem, GitHub, databases, Slack, and any MCP server. Ask it to connect and it handles the setup." },
+  { label: "Self-evolving", detail: "Gets better at your tasks over time. Builds its own tools when it needs something new. Grows with you." },
+  { label: "Skill ecosystem", detail: "147 skills ready to go. Install any community skill in one command. From email automation to DeFi trading to org management." },
+  { label: "Solana ecosystem", detail: "Swaps tokens, checks balances, monitors DeFi positions, mints NFTs. A full crypto operator with its own wallet." },
+  { label: "Business launcher", detail: "Describe a business idea. It builds the product, sets up the landing page, launches marketing, and starts selling." },
+  { label: "Multi-model", detail: "Picks the best AI model for each task automatically. Claude for reasoning, GPT for code, local models for privacy." },
+  { label: "Agent email", detail: "Has its own inbox. Reads, writes, and organizes email autonomously. Handles verification flows and attachments." },
+  { label: "Crypto payments", detail: "Earns, holds, and spends crypto on its own. Swaps on Jupiter, pays on Base. You set the spending limits." },
+  { label: "Agent organization", detail: "Hires itself. Spins up specialist agents for marketing, research, design — each one autonomous with its own memory." },
+  { label: "Web dashboard", detail: "Watch it think, act, and learn in real time. See every tool call, every decision, every piece of knowledge it acquires." },
 ]
 
 const stats = [
-  { value: "28", label: "Skills" },
-  { value: "107+", label: "Tools" },
-  { value: "5", label: "Channels" },
+  { value: "147", label: "Skills" },
+  { value: "140+", label: "Tools" },
+  { value: "6", label: "Channels" },
   { value: "MCP", label: "Support" },
-  { value: "23", label: "Docs" },
+  { value: "47", label: "Docs" },
 ]
 
 function ArchLayer({ label, sublabel, muted = false }: { label: string; sublabel?: string; muted?: boolean }) {
@@ -68,9 +72,9 @@ export default function HomePage() {
           </div>
 
           <p className="mt-10 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-            Local-first, multi-channel, browser-capable.
+            It browses the web, writes code, sends emails, trades crypto,
             <br />
-            Learns as it works.
+            and gets better at your tasks every day.
           </p>
 
           <div className="mt-12 max-w-xl space-y-4">
@@ -163,12 +167,12 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { number: "01", title: "Autonomous Web Presence", summary: "Creates accounts, builds profiles, participates in communities — over days and weeks." },
-              { number: "02", title: "Development Team", summary: "Spawns coding agents in isolated worktrees with cross-model review." },
-              { number: "03", title: "Self-Building", summary: "Can't do something yet? It builds the capability, tests it, and deploys." },
-              { number: "04", title: "Cross-Platform Intel", summary: "Orchestrates across email, browser, documents, and messaging channels." },
-              { number: "05", title: "Revenue Operations", summary: "Finds gigs, delivers work, collects payment — full freelance pipeline." },
-              { number: "06", title: "Background Mind", summary: "Runs autonomously between conversations. Evaluates, executes, sleeps, repeats." },
+              { number: "01", title: "Autonomous Web Presence", summary: "You wake up to new followers, posted content, and active community profiles it built overnight." },
+              { number: "02", title: "Development Team", summary: "Give it a feature spec. Get back reviewed, tested code from multiple agents that challenged each other's work." },
+              { number: "03", title: "Self-Building", summary: "Ask it to do something it can't. Come back to find it built the tool, tested it, and already used it." },
+              { number: "04", title: "Cross-Platform Intel", summary: "Ask a question that needs email, web, and documents. Get one answer with sources." },
+              { number: "05", title: "Revenue Operations", summary: "It finds freelance gigs, applies, delivers the work, and collects USDC. You check the wallet." },
+              { number: "06", title: "Background Mind", summary: "Close your laptop. It keeps working — thinking, executing, improving. Open it tomorrow to results." },
             ].map((uc) => (
               <div key={uc.number} className="bg-background p-6 sm:p-8">
                 <span className="font-mono text-2xl font-extralight tabular-nums text-border">
@@ -205,23 +209,22 @@ export default function HomePage() {
                 Architecture
               </span>
               <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
-                Runs locally,<br />connects everywhere.
+                Your machine.<br />Your data. Its brain.
               </h2>
               <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
-                EloPhanto runs on your machine, routes through multiple LLM
-                providers, and connects to your channels — all while keeping
-                your data private.
+                Everything stays local. It thinks through the best AI model for each task,
+                acts across all your channels, and remembers what it learned — permanently.
               </p>
             </div>
 
             {/* Architecture Diagram */}
             <div className="flex flex-col items-center lg:pt-8">
               <div className="w-full max-w-md space-y-0">
-                <ArchLayer label="Communication" sublabel="CLI &middot; Web &middot; Telegram &middot; Discord &middot; Slack" />
+                <ArchLayer label="Communication" sublabel="CLI &middot; Web &middot; VS Code &middot; Telegram &middot; Discord &middot; Slack" />
                 <VerticalLine />
                 <ArchLayer label="Intelligence" sublabel="Multi-provider LLM routing &middot; Context management" />
                 <VerticalLine />
-                <ArchLayer label="Execution" sublabel="107+ tools &middot; Browser automation &middot; MCP &middot; 28 skills" />
+                <ArchLayer label="Execution" sublabel="140+ tools &middot; Browser automation &middot; MCP &middot; 147 skills" />
                 <VerticalLine />
                 <ArchLayer label="Persistence" sublabel="Knowledge &middot; Identity &middot; Memory &middot; Evolution" muted />
               </div>

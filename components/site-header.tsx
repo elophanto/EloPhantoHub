@@ -8,12 +8,12 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
 
-const navLinks = [
+const navLinks: { href: string; label: string; disabled?: boolean; external?: boolean }[] = [
   { href: "/", label: "Home" },
   { href: "/use-cases", label: "Use Cases" },
   { href: "/hub", label: "Hub" },
   { href: "/download", label: "Download" },
-  { href: "/docs", label: "Docs", disabled: true },
+  { href: "https://docs.elophanto.com", label: "Docs", external: true },
 ]
 
 export function SiteHeader() {
@@ -36,19 +36,31 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.disabled ? "#" : link.href}
-              className={`font-mono text-[11px] uppercase tracking-[0.15em] transition-opacity ${
-                link.disabled
-                  ? "pointer-events-none opacity-20"
-                  : "opacity-50 hover:opacity-100"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) =>
+            link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-[11px] uppercase tracking-[0.15em] opacity-50 transition-opacity hover:opacity-100"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.disabled ? "#" : link.href}
+                className={`font-mono text-[11px] uppercase tracking-[0.15em] transition-opacity ${
+                  link.disabled
+                    ? "pointer-events-none opacity-20"
+                    : "opacity-50 hover:opacity-100"
+                }`}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
 
         <div className="flex items-center gap-4">
@@ -72,20 +84,33 @@ export function SiteHeader() {
                 EloPhanto
               </SheetTitle>
               <nav className="mt-12 flex flex-col gap-1">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.disabled ? "#" : link.href}
-                    onClick={() => setOpen(false)}
-                    className={`py-3 font-mono text-xs uppercase tracking-[0.15em] transition-opacity ${
-                      link.disabled
-                        ? "pointer-events-none opacity-20"
-                        : "opacity-50 hover:opacity-100"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {navLinks.map((link) =>
+                  link.external ? (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setOpen(false)}
+                      className="py-3 font-mono text-xs uppercase tracking-[0.15em] opacity-50 transition-opacity hover:opacity-100"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={link.href}
+                      href={link.disabled ? "#" : link.href}
+                      onClick={() => setOpen(false)}
+                      className={`py-3 font-mono text-xs uppercase tracking-[0.15em] transition-opacity ${
+                        link.disabled
+                          ? "pointer-events-none opacity-20"
+                          : "opacity-50 hover:opacity-100"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  )
+                )}
               </nav>
             </SheetContent>
           </Sheet>

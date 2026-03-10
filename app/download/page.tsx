@@ -78,6 +78,27 @@ export default function DownloadPage() {
         </div>
       </div>
 
+      {/* Extensions */}
+      <div className="mt-20 mb-20 grid gap-px border border-border/50 bg-border/50 sm:grid-cols-2">
+        <div className="bg-background p-6 sm:p-8">
+          <span className="block font-mono text-[10px] uppercase tracking-[0.2em] mb-2">
+            VS Code Extension
+          </span>
+          <p className="text-sm text-muted-foreground">
+            Install from <code className="font-mono text-xs">vscode-extension/</code> — connects to the gateway as another channel.
+          </p>
+        </div>
+        <div className="bg-background p-6 sm:p-8">
+          <span className="block font-mono text-[10px] uppercase tracking-[0.2em] mb-2">
+            Solana Wallet
+          </span>
+          <p className="text-sm text-muted-foreground">
+            Set <code className="font-mono text-xs">default_chain: solana</code> in config. Wallet auto-creates on first use. Jupiter DEX swaps need a free API key from{" "}
+            <a href="https://portal.jup.ag" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-foreground">portal.jup.ag</a>.
+          </p>
+        </div>
+      </div>
+
       {/* Coming soon */}
       <div className="mt-16 flex gap-8">
         <div>
