@@ -72,8 +72,11 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    // Download existing train.jsonl and append new rows
+    // Append new rows to train.jsonl via HF commit API
+    // Use LFS upload for files that may exceed the inline base64 limit (~10MB)
     const TRAIN_PATH = "data/train.jsonl"
+
+    // Download existing content
     let existingContent = ""
     const dlResp = await fetch(
       `https://huggingface.co/datasets/${HF_REPO}/resolve/main/${TRAIN_PATH}`,
@@ -90,36 +93,23 @@ export async function GET(request: NextRequest) {
       .map((row) => JSON.stringify(row))
       .join("\n")
     const mergedContent = existingContent + newLines + "\n"
-    const encodedContent = Buffer.from(mergedContent).toString("base64")
+    const fileBuffer = Buffer.from(mergedContent)
 
-    const ndjsonLines = [
-      JSON.stringify({
-        key: "header",
-        value: {
-          summary: `Add ${datasetRows.length} training examples`,
-        },
-      }),
-      JSON.stringify({
-        key: "file",
-        value: {
-          content: encodedContent,
-          path: TRAIN_PATH,
-          encoding: "base64",
-        },
-      }),
-    ].join("\n")
-
-    const response = await fetch(
-      `https://huggingface.co/api/datasets/${HF_REPO}/commit/main`,
+    // Step 1: Pre-upload the file via HF upload API (handles large files)
+    const uploadResp = await fetch(
+      `https://huggingface.co/api/datasets/${HF_REPO}/upload/main/${TRAIN_PATH}`,
       {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.HF_TOKEN}`,
-          "Content-Type": "application/x-ndjson",
+          "Content-Type": "application/octet-stream",
+          "x-commit-message": `Add ${datasetRows.length} training examples`,
         },
-        body: ndjsonLines,
+        body: fileBuffer,
       }
     )
+
+    const response = uploadResp
 
     if (!response.ok) {
       const errorText = await response.text()
