@@ -72,44 +72,41 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    // Append new rows to train.jsonl via HF commit API
-    // Use LFS upload for files that may exceed the inline base64 limit (~10MB)
-    const TRAIN_PATH = "data/train.jsonl"
-
-    // Download existing content
-    let existingContent = ""
-    const dlResp = await fetch(
-      `https://huggingface.co/datasets/${HF_REPO}/resolve/main/${TRAIN_PATH}`,
-      { headers: { Authorization: `Bearer ${process.env.HF_TOKEN}` }, redirect: "follow" }
-    )
-    if (dlResp.ok) {
-      existingContent = await dlResp.text()
-      if (existingContent && !existingContent.endsWith("\n")) {
-        existingContent += "\n"
-      }
-    }
-
-    const newLines = datasetRows
+    // Push new rows as a timestamped batch file in data/
+    // HuggingFace auto-merges all data/*.jsonl files in the dataset viewer
+    const fileContent = datasetRows
       .map((row) => JSON.stringify(row))
       .join("\n")
-    const mergedContent = existingContent + newLines + "\n"
-    const fileBuffer = Buffer.from(mergedContent)
+    const encodedContent = Buffer.from(fileContent).toString("base64")
 
-    // Step 1: Pre-upload the file via HF upload API (handles large files)
-    const uploadResp = await fetch(
-      `https://huggingface.co/api/datasets/${HF_REPO}/upload/main/${TRAIN_PATH}`,
+    const ndjsonLines = [
+      JSON.stringify({
+        key: "header",
+        value: {
+          summary: `Add ${datasetRows.length} training examples`,
+        },
+      }),
+      JSON.stringify({
+        key: "file",
+        value: {
+          content: encodedContent,
+          path: `data/batch_${Date.now()}.jsonl`,
+          encoding: "base64",
+        },
+      }),
+    ].join("\n")
+
+    const response = await fetch(
+      `https://huggingface.co/api/datasets/${HF_REPO}/commit/main`,
       {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.HF_TOKEN}`,
-          "Content-Type": "application/octet-stream",
-          "x-commit-message": `Add ${datasetRows.length} training examples`,
+          "Content-Type": "application/x-ndjson",
         },
-        body: fileBuffer,
+        body: ndjsonLines,
       }
     )
-
-    const response = uploadResp
 
     if (!response.ok) {
       const errorText = await response.text()
