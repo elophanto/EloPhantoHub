@@ -53,7 +53,7 @@ async function uploadToHF(
     const uploadResp = await fetch(uploadUrl, {
       method: "PUT",
       headers: uploadHeaders,
-      body: content,
+      body: new Uint8Array(content),
     })
 
     if (!uploadResp.ok) {
