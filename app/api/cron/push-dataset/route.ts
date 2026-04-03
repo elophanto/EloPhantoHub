@@ -1,5 +1,109 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createServerSupabaseClient } from "@/lib/supabase/server"
+import { createHash } from "crypto"
+
+const HF_REPO = "EloPhanto/dataset"
+const TRAIN_PATH = "data/train.jsonl"
+
+/**
+ * Upload a file to HuggingFace using the LFS protocol, then commit.
+ * This handles files of any size (unlike the base64 commit API which caps ~10MB).
+ */
+async function uploadToHF(
+  content: Buffer,
+  commitMessage: string,
+  token: string
+): Promise<{ ok: boolean; commitOid?: string; error?: string }> {
+  const sha256 = createHash("sha256").update(content).digest("hex")
+  const size = content.length
+
+  // Step 1: Request LFS upload URL via batch API
+  const lfsResp = await fetch(
+    `https://huggingface.co/api/datasets/${HF_REPO}.git/info/lfs/objects/batch`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/vnd.git-lfs+json",
+      },
+      body: JSON.stringify({
+        operation: "upload",
+        transfers: ["basic"],
+        objects: [{ oid: sha256, size }],
+        hash_algo: "sha256",
+      }),
+    }
+  )
+
+  if (!lfsResp.ok) {
+    return { ok: false, error: `LFS batch failed: ${lfsResp.status} ${await lfsResp.text()}` }
+  }
+
+  const lfsData = await lfsResp.json()
+  const obj = lfsData.objects?.[0]
+
+  // Step 2: Upload the file to the LFS storage (if not already uploaded)
+  if (obj?.actions?.upload) {
+    const uploadUrl = obj.actions.upload.href
+    const uploadHeaders: Record<string, string> = {
+      ...(obj.actions.upload.header || {}),
+    }
+
+    const uploadResp = await fetch(uploadUrl, {
+      method: "PUT",
+      headers: uploadHeaders,
+      body: content,
+    })
+
+    if (!uploadResp.ok) {
+      return { ok: false, error: `LFS upload failed: ${uploadResp.status} ${await uploadResp.text()}` }
+    }
+  }
+
+  // Step 3: Create a commit with the LFS pointer file
+  const lfsPointer =
+    `version https://git-lfs.github.com/spec/v1\n` +
+    `oid sha256:${sha256}\n` +
+    `size ${size}\n`
+
+  const encodedPointer = Buffer.from(lfsPointer).toString("base64")
+
+  const ndjsonLines = [
+    JSON.stringify({
+      key: "header",
+      value: { summary: commitMessage },
+    }),
+    JSON.stringify({
+      key: "lfsFile",
+      value: {
+        path: TRAIN_PATH,
+        algo: "sha256",
+        oid: sha256,
+        size,
+      },
+    }),
+  ].join("\n")
+
+  const commitResp = await fetch(
+    `https://huggingface.co/api/datasets/${HF_REPO}/commit/main`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/x-ndjson",
+      },
+      body: ndjsonLines,
+    }
+  )
+
+  if (!commitResp.ok) {
+    return { ok: false, error: `Commit failed: ${commitResp.status} ${await commitResp.text()}` }
+  }
+
+  const result = await commitResp.json()
+  return { ok: true, commitOid: result.commitOid || result.commit?.sha }
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -42,8 +146,6 @@ export async function GET(request: NextRequest) {
       created_at: row.created_at,
     }))
 
-    // Push to HuggingFace (token is required)
-    const HF_REPO = "EloPhanto/dataset"
     if (!process.env.HF_TOKEN) {
       return NextResponse.json(
         { error: "HF_TOKEN not configured" },
@@ -72,53 +174,42 @@ export async function GET(request: NextRequest) {
       })
     }
 
-    // Push new rows as a timestamped batch file in data/
-    // HuggingFace auto-merges all data/*.jsonl files in the dataset viewer
-    const fileContent = datasetRows
+    // Download existing train.jsonl
+    let existingContent = ""
+    const dlResp = await fetch(
+      `https://huggingface.co/datasets/${HF_REPO}/resolve/main/${TRAIN_PATH}`,
+      { headers: { Authorization: `Bearer ${process.env.HF_TOKEN}` }, redirect: "follow" }
+    )
+    if (dlResp.ok) {
+      existingContent = await dlResp.text()
+      if (existingContent && !existingContent.endsWith("\n")) {
+        existingContent += "\n"
+      }
+    }
+
+    // Append new rows
+    const newLines = datasetRows
       .map((row) => JSON.stringify(row))
       .join("\n")
-    const encodedContent = Buffer.from(fileContent).toString("base64")
+    const mergedContent = existingContent + newLines + "\n"
+    const fileBuffer = Buffer.from(mergedContent)
 
-    const ndjsonLines = [
-      JSON.stringify({
-        key: "header",
-        value: {
-          summary: `Add ${datasetRows.length} training examples`,
-        },
-      }),
-      JSON.stringify({
-        key: "file",
-        value: {
-          content: encodedContent,
-          path: `data/batch_${Date.now()}.jsonl`,
-          encoding: "base64",
-        },
-      }),
-    ].join("\n")
-
-    const response = await fetch(
-      `https://huggingface.co/api/datasets/${HF_REPO}/commit/main`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.HF_TOKEN}`,
-          "Content-Type": "application/x-ndjson",
-        },
-        body: ndjsonLines,
-      }
+    // Upload via LFS protocol (handles any file size)
+    const result = await uploadToHF(
+      fileBuffer,
+      `Add ${datasetRows.length} training examples`,
+      process.env.HF_TOKEN
     )
 
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error("HF push failed:", response.status, errorText)
+    if (!result.ok) {
+      console.error("HF push failed:", result.error)
       return NextResponse.json(
-        { error: "HuggingFace push failed", details: errorText },
+        { error: "HuggingFace push failed", details: result.error },
         { status: 502 }
       )
     }
 
-    const result = await response.json()
-    const hfCommitSha = result.commitOid || result.commit?.sha || null
+    const hfCommitSha = result.commitOid || null
 
     // Get previous dataset size
     const { data: lastLog } = await supabase
