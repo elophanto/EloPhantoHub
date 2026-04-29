@@ -148,77 +148,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="border-t border-border/50">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
-          <div className="mb-16">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-              Capabilities
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-5">
-            {features.map((feature) => (
-              <div
-                key={feature.label}
-                className="bg-background p-6 sm:p-8"
-              >
-                <h3 className="font-mono text-xs uppercase tracking-[0.1em]">
-                  {feature.label}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {feature.detail}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Use Cases Teaser */}
-      <section className="border-t border-border/50">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
-          <div className="mb-16">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-              Use Cases
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { number: "01", title: "Autonomous Web Presence", summary: "You wake up to new followers, posted content, and active community profiles it built overnight." },
-              { number: "02", title: "Development Team", summary: "Give it a feature spec. Get back reviewed, tested code from multiple agents that challenged each other's work." },
-              { number: "03", title: "Self-Building", summary: "Ask it to do something it can't. Come back to find it built the tool, tested it, and already used it." },
-              { number: "04", title: "Cross-Platform Intel", summary: "Ask a question that needs email, web, and documents. Get one answer with sources." },
-              { number: "05", title: "Revenue Operations", summary: "It finds freelance gigs, applies, delivers the work, and collects USDC. You check the wallet." },
-              { number: "06", title: "Background Mind", summary: "Close your laptop. It keeps working — thinking, executing, improving. Open it tomorrow to results." },
-            ].map((uc) => (
-              <div key={uc.number} className="bg-background p-6 sm:p-8">
-                <span className="font-mono text-2xl font-extralight tabular-nums text-border">
-                  {uc.number}
-                </span>
-                <h3 className="mt-3 font-mono text-xs uppercase tracking-[0.1em]">
-                  {uc.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {uc.summary}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10">
-            <Link
-              href="/use-cases"
-              className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100"
-              style={{ opacity: 0.5 }}
-            >
-              View all use cases &rarr;
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Token */}
       <section className="border-t border-border/50">
         <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
@@ -306,6 +235,77 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="border-t border-border/50">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="mb-16">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Capabilities
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-5">
+            {features.map((feature) => (
+              <div
+                key={feature.label}
+                className="bg-background p-6 sm:p-8"
+              >
+                <h3 className="font-mono text-xs uppercase tracking-[0.1em]">
+                  {feature.label}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {feature.detail}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases Teaser */}
+      <section className="border-t border-border/50">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="mb-16">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Use Cases
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { number: "01", title: "Autonomous Web Presence", summary: "You wake up to new followers, posted content, and active community profiles it built overnight." },
+              { number: "02", title: "Development Team", summary: "Give it a feature spec. Get back reviewed, tested code from multiple agents that challenged each other's work." },
+              { number: "03", title: "Self-Building", summary: "Ask it to do something it can't. Come back to find it built the tool, tested it, and already used it." },
+              { number: "04", title: "Cross-Platform Intel", summary: "Ask a question that needs email, web, and documents. Get one answer with sources." },
+              { number: "05", title: "Revenue Operations", summary: "It finds freelance gigs, applies, delivers the work, and collects USDC. You check the wallet." },
+              { number: "06", title: "Background Mind", summary: "Close your laptop. It keeps working — thinking, executing, improving. Open it tomorrow to results." },
+            ].map((uc) => (
+              <div key={uc.number} className="bg-background p-6 sm:p-8">
+                <span className="font-mono text-2xl font-extralight tabular-nums text-border">
+                  {uc.number}
+                </span>
+                <h3 className="mt-3 font-mono text-xs uppercase tracking-[0.1em]">
+                  {uc.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {uc.summary}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10">
+            <Link
+              href="/use-cases"
+              className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100"
+              style={{ opacity: 0.5 }}
+            >
+              View all use cases &rarr;
+            </Link>
           </div>
         </div>
       </section>
