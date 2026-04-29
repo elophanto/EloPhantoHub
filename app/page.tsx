@@ -63,6 +63,25 @@ export default function HomePage() {
             </span>
           </div>
 
+          {/* Live token ticker */}
+          <a
+            href="https://pump.fun/coin/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-3 border border-border/50 px-4 py-2 transition-colors hover:bg-card/50"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em]">
+              $ELO live on Solana
+            </span>
+            <span className="font-mono text-[10px] tracking-[0.1em] text-muted-foreground">
+              &middot; agent earning autonomously &rarr;
+            </span>
+          </a>
+
           <div className="mt-8 max-w-3xl">
             <h1 className="text-4xl font-light leading-[1.1] tracking-tight sm:text-5xl lg:text-7xl">
               A self-evolving<br />
@@ -196,6 +215,97 @@ export default function HomePage() {
             >
               View all use cases &rarr;
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Token */}
+      <section className="border-t border-border/50">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="grid items-start gap-16 lg:grid-cols-2">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                Token &middot; Solana
+              </span>
+              <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
+                $ELO is live.<br />
+                <em className="font-serif italic">The agent is working.</em>
+              </h2>
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
+                Right now, on its own machine, the agent is autonomously trading,
+                shipping, and earning &mdash; with its own Solana wallet. It swaps
+                on Jupiter, runs DeFi positions, and reinvests what it makes.
+                No human in the loop.
+              </p>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+                The token is the agent&apos;s economy. You hold a piece of what it builds.
+              </p>
+
+              <div className="mt-10 flex flex-wrap items-center gap-6">
+                <a
+                  href="https://pump.fun/coin/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-xs uppercase tracking-[0.15em] border-b border-foreground pb-1 transition-opacity hover:opacity-60"
+                >
+                  Buy on pump.fun
+                </a>
+                <a
+                  href="https://dexscreener.com/solana/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100"
+                  style={{ opacity: 0.5 }}
+                >
+                  Chart &rarr;
+                </a>
+              </div>
+            </div>
+
+            <div className="lg:pt-8">
+              <div className="border border-border/50">
+                <div className="border-b border-border/50 px-6 py-4">
+                  <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                    Contract Address
+                  </span>
+                  <span className="mt-2 block break-all font-mono text-xs sm:text-sm">
+                    BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-px bg-border/50">
+                  <div className="bg-background px-6 py-5">
+                    <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                      Network
+                    </span>
+                    <span className="mt-2 block font-mono text-sm">Solana</span>
+                  </div>
+                  <div className="bg-background px-6 py-5">
+                    <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                      Status
+                    </span>
+                    <span className="mt-2 flex items-center gap-2 font-mono text-sm">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/60" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                      </span>
+                      Agent active
+                    </span>
+                  </div>
+                  <div className="bg-background px-6 py-5">
+                    <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                      Mode
+                    </span>
+                    <span className="mt-2 block font-mono text-sm">Autonomous</span>
+                  </div>
+                  <div className="bg-background px-6 py-5">
+                    <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
+                      Mandate
+                    </span>
+                    <span className="mt-2 block font-mono text-sm">Make money</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

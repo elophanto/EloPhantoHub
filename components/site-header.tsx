@@ -14,6 +14,7 @@ const navLinks: { href: string; label: string; disabled?: boolean; external?: bo
   { href: "/hub", label: "Hub" },
   { href: "/download", label: "Download" },
   { href: "https://docs.elophanto.com", label: "Docs", external: true },
+  { href: "https://pump.fun/coin/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump", label: "$ELO", external: true },
 ]
 
 export function SiteHeader() {
