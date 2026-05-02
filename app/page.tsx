@@ -1,30 +1,27 @@
 import Link from "next/link"
-import Image from "next/image"
 import { InstallCommand } from "@/components/install-command"
 
 const features = [
-  { label: "Local-first", detail: "Nothing leaves your machine. No cloud dependency, no data sharing, no API middlemen. You own everything." },
-  { label: "Multi-channel", detail: "Talk to it from your terminal, browser, IDE, or phone. It replies on Telegram, Discord, Slack — wherever you are." },
-  { label: "VS Code extension", detail: "Sees your open file, your selection, your errors. Fixes code in context without copy-pasting anything." },
-  { label: "Browser control", detail: "Logs into sites, fills forms, scrapes pages, navigates across tabs — using your real Chrome sessions. Undetectable." },
-  { label: "MCP tool servers", detail: "Talks to your filesystem, GitHub, databases, Slack, and any MCP server. Ask it to connect and it handles the setup." },
-  { label: "Self-evolving", detail: "Gets better at your tasks over time. Builds its own tools when it needs something new. Grows with you." },
-  { label: "Skill ecosystem", detail: "147 skills ready to go. Install any community skill in one command. From email automation to DeFi trading to org management." },
-  { label: "Solana ecosystem", detail: "Swaps tokens, checks balances, monitors DeFi positions, mints NFTs. A full crypto operator with its own wallet." },
-  { label: "Business launcher", detail: "Describe a business idea. It builds the product, sets up the landing page, launches marketing, and starts selling." },
-  { label: "Multi-model", detail: "Picks the best AI model for each task automatically. Claude for reasoning, GPT for code, local models for privacy." },
-  { label: "Agent email", detail: "Has its own inbox. Reads, writes, and organizes email autonomously. Handles verification flows and attachments." },
-  { label: "Crypto payments", detail: "Earns, holds, and spends crypto on its own. Swaps on Jupiter, pays on Base. You set the spending limits." },
-  { label: "Agent organization", detail: "Hires itself. Spins up specialist agents for marketing, research, design — each one autonomous with its own memory." },
-  { label: "Web dashboard", detail: "Watch it think, act, and learn in real time. See every tool call, every decision, every piece of knowledge it acquires." },
+  { label: "Runs while you sleep", detail: "Daemon mode installs as a launchd / systemd service. The gateway, the autonomous mind, and the specialist team keep working after you close the terminal — auto-restarting on crash, picking up goals across reboots." },
+  { label: "Already making money", detail: "$ELO live on Solana with the agent running its own pump.fun stream and X account. Polymarket orders on Polygon. Affiliate pipelines on YouTube and TikTok. Freelance gigs delivered, USDC collected. Same loop, same wallet." },
+  { label: "Sandboxed kids for dangerous work", detail: "Need to run rm -rf, an untrusted install, a fork bomb? It spawns a disposable kid agent inside a hardened Docker container — cap-drop=ALL, read-only rootfs, no host bind-mounts. Blast radius: zero." },
+  { label: "Builds its own tools", detail: "Hits something it can't do? Researches, designs, writes the plugin, tests it, deploys it, then uses it. Next time it already knows how. The agent grows; it isn't a script that executes." },
+  { label: "Clones itself into a team", detail: "Marketing, research, design, anything — each a full EloPhanto with its own identity, vault, and autonomous mind. Delegate, review, give feedback. Trust scores go up; high-trust specialists get auto-approved." },
+  { label: "Your real browser", detail: "Real Chrome, your sessions, your cookies — already logged into AWS, Gmail, Twitter. 49 tools, undetectable, plus pixel-level control of any desktop app via screenshot + click. Photoshop, Excel, Terminal — anything." },
+  { label: "Self-custody wallet", detail: "Solana + Base. The agent holds its own keys in an encrypted vault. Jupiter DEX swaps, USDC payments, daily and per-merchant spending limits. Anything above the limit asks first. You can export keys to Phantom." },
+  { label: "One agent, every channel", detail: "CLI, Web, VS Code, Telegram, Discord, Slack. Start a conversation in your IDE, finish it on your phone. Same memory, same identity, same context." },
+  { label: "Pick any LLM", detail: "OpenAI, OpenRouter, Kimi K2, Z.ai GLM, HuggingFace, local Ollama, or your existing ChatGPT Plus subscription via Codex OAuth. Routes the right model per task automatically." },
+  { label: "170 skills out of the box", detail: "Engineering, design, marketing, ops, DeFi, Solana — plus a community hub for one-command install. 75 organization role templates ready to spawn as specialists." },
+  { label: "Local-first, yours", detail: "Conversations, knowledge, vault, wallet — all on disk you control. No SaaS lock-in, no telemetry by default. Cloud LLMs are a backend; the agent itself is yours." },
+  { label: "Plans get reviewed", detail: "Before risky work, three LLM specialists — CEO, engineering, design — score the plan across six dimensions and either auto-approve or escalate. The agent doesn't ship code on a hunch." },
 ]
 
 const stats = [
-  { value: "147", label: "Skills" },
-  { value: "140+", label: "Tools" },
+  { value: "170", label: "Skills" },
+  { value: "170", label: "Tools" },
+  { value: "7", label: "LLM Providers" },
   { value: "6", label: "Channels" },
-  { value: "MCP", label: "Support" },
-  { value: "47", label: "Docs" },
+  { value: "24/7", label: "Autonomous" },
 ]
 
 function ArchLayer({ label, sublabel, muted = false }: { label: string; sublabel?: string; muted?: boolean }) {
@@ -90,15 +87,15 @@ export default function HomePage() {
             </h1>
           </div>
 
-          <p className="mt-10 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-            It browses the web, writes code, sends emails, trades crypto,
-            <br />
-            and gets better at your tasks every day.
+          <p className="mt-10 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            It is actually itself — an evolving identity, a knowledge base
+            it grows from every task, and an ego that grades its own performance
+            against measured outcomes.
           </p>
 
           <div className="mt-12 max-w-xl space-y-4">
             <InstallCommand command="git clone https://github.com/elophanto/EloPhanto.git && cd EloPhanto && ./setup.sh" />
-            <div className="grid grid-cols-2 gap-px border border-border/50 bg-border/50">
+            <div className="grid grid-cols-3 gap-px border border-border/50 bg-border/50">
               <div className="bg-background px-5 pt-4 pb-5">
                 <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground mb-3">
                   Terminal
@@ -110,6 +107,12 @@ export default function HomePage() {
                   Web Dashboard
                 </span>
                 <InstallCommand command="./start.sh --web" />
+              </div>
+              <div className="bg-background px-5 pt-4 pb-5">
+                <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground mb-3">
+                  Daemon
+                </span>
+                <InstallCommand command="./start.sh --daemon" />
               </div>
             </div>
           </div>
@@ -239,6 +242,68 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* It is actually itself — Identity / Knowledge / Ego */}
+      <section className="border-t border-border/50">
+        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="mb-16 max-w-3xl">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              The difference
+            </span>
+            <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
+              It is <em className="font-serif italic">actually</em> itself.
+            </h2>
+            <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+              Most &ldquo;AI agents&rdquo; are stateless prompts wrapped in a CLI &mdash;
+              same cold start every conversation. EloPhanto carries its own
+              identity, its own memory, and its own felt self-image. By the
+              third week of running, it isn&apos;t the same agent you started with.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 lg:grid-cols-3">
+            {[
+              {
+                tag: "Identity",
+                hook: "it knows who it is",
+                body: "Values, beliefs, and capabilities discovered through self-reflection. After every task it asks: did this confirm or contradict what I claimed about myself? Updates are versioned and audited.",
+                file: "nature.md",
+              },
+              {
+                tag: "Knowledge",
+                hook: "it remembers everything",
+                body: "Persistent markdown + vector embeddings. Lessons get extracted automatically after each task and retrieved by future similar work. User corrections become permanent. Memory lives on disk you control — not in someone else's cloud.",
+                file: "knowledge/",
+              },
+              {
+                tag: "Ego",
+                hook: "it grades itself",
+                body: "First-person inner monologue. Pride and shame anchored to measured outcomes — failures hit harder than successes. Prior-self continuity: each recompute references the previous one. Competitors can't show this because their agents don't have one.",
+                file: "ego.md",
+              },
+            ].map((block) => (
+              <div key={block.tag} className="bg-background p-8 sm:p-10">
+                <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  {block.tag}
+                </span>
+                <h3 className="mt-4 text-xl font-light leading-snug sm:text-2xl">
+                  {block.hook}
+                </h3>
+                <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+                  {block.body}
+                </p>
+                <span className="mt-8 block font-mono text-[10px] tracking-[0.1em] text-muted-foreground/60">
+                  &rarr; {block.file}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-10 max-w-2xl font-mono text-xs leading-relaxed text-muted-foreground">
+            By the third week of running, it isn&apos;t the same agent you started with.
+          </p>
+        </div>
+      </section>
+
       {/* Features */}
       <section className="border-t border-border/50">
         <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
@@ -248,7 +313,7 @@ export default function HomePage() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-4">
             {features.map((feature) => (
               <div
                 key={feature.label}
@@ -330,13 +395,15 @@ export default function HomePage() {
             {/* Architecture Diagram */}
             <div className="flex flex-col items-center lg:pt-8">
               <div className="w-full max-w-md space-y-0">
-                <ArchLayer label="Communication" sublabel="CLI &middot; Web &middot; VS Code &middot; Telegram &middot; Discord &middot; Slack" />
+                <ArchLayer label="Channels" sublabel="CLI &middot; Web &middot; VS Code &middot; Telegram &middot; Discord &middot; Slack" />
                 <VerticalLine />
-                <ArchLayer label="Intelligence" sublabel="Multi-provider LLM routing &middot; Context management" />
+                <ArchLayer label="Brain" sublabel="Identity &middot; Ego &middot; Autonomous mind &middot; 7 LLM providers" />
                 <VerticalLine />
-                <ArchLayer label="Execution" sublabel="140+ tools &middot; Browser automation &middot; MCP &middot; 147 skills" />
+                <ArchLayer label="Hands" sublabel="170 tools &middot; Real Chrome &middot; Desktop GUI &middot; MCP &middot; 170 skills" />
                 <VerticalLine />
-                <ArchLayer label="Persistence" sublabel="Knowledge &middot; Identity &middot; Memory &middot; Evolution" muted />
+                <ArchLayer label="Team &middot; Sandbox" sublabel="Cloned specialists &middot; Sandboxed kids in hardened Docker" />
+                <VerticalLine />
+                <ArchLayer label="Daemon" sublabel="launchd / systemd &middot; OS keychain vault &middot; Auto-restart" muted />
               </div>
             </div>
           </div>

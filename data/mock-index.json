@@ -564,6 +564,12 @@
     { "id": "data", "label": "Data", "icon": "database" },
     { "id": "security", "label": "Security", "icon": "shield" },
     { "id": "design", "label": "Design", "icon": "palette" },
-    { "id": "integration", "label": "Integration", "icon": "plug" }
+    { "id": "integration", "label": "Integration", "icon": "plug" },
+    { "id": "defi", "label": "DeFi", "icon": "coins" },
+    { "id": "solana", "label": "Solana", "icon": "circle-dot" },
+    { "id": "crypto", "label": "Crypto", "icon": "wallet" },
+    { "id": "strategy", "label": "Strategy", "icon": "target" },
+    { "id": "money", "label": "Money", "icon": "banknote" },
+    { "id": "sandbox", "label": "Sandbox", "icon": "box" }
   ]
 }

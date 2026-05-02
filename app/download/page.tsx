@@ -30,7 +30,7 @@ export default function DownloadPage() {
         <span className="mb-8 block font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
           3. Start
         </span>
-        <div className="grid gap-px border border-border/50 bg-border/50 sm:grid-cols-2">
+        <div className="grid gap-px border border-border/50 bg-border/50 sm:grid-cols-3">
           <div className="bg-background p-6 sm:p-8">
             <span className="block font-mono text-[10px] uppercase tracking-[0.2em] mb-2">
               Terminal
@@ -48,6 +48,15 @@ export default function DownloadPage() {
               Real-time dashboard at localhost:3000.
             </p>
             <InstallCommand command="./start.sh --web" />
+          </div>
+          <div className="bg-background p-6 sm:p-8">
+            <span className="block font-mono text-[10px] uppercase tracking-[0.2em] mb-2">
+              Daemon
+            </span>
+            <p className="mb-4 text-sm text-muted-foreground">
+              Background launchd / systemd user service. Auto-restarts on crash. Vault password stored in your OS keychain.
+            </p>
+            <InstallCommand command="./start.sh --daemon" />
           </div>
         </div>
       </div>
