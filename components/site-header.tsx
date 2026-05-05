@@ -20,7 +20,7 @@ const navLinks: {
   { href: "/hub", label: "Hub" },
   { href: "/hire", label: "Hire", featured: true },
   { href: "/download", label: "Download" },
-  { href: "https://docs.elophanto.com", label: "Docs", external: true },
+  { href: "/docs", label: "Docs" },
   { href: "https://pump.fun/coin/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump", label: "$ELO", external: true },
 ]
 

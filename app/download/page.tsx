@@ -1,21 +1,46 @@
 import type { Metadata } from "next"
+import { JsonLd } from "@/components/json-ld"
 import { InstallCommand } from "@/components/install-command"
+import { absoluteUrl, createMetadata, siteConfig } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Download",
-  description: "Install EloPhanto on your machine — macOS, Linux, or Windows (WSL).",
+export const metadata: Metadata = createMetadata({
+  title: "Download EloPhanto - Install the Local AI Agent",
+  description:
+    "Install EloPhanto on macOS, Linux, or Windows via WSL and run the autonomous AI agent from your terminal, web dashboard, or daemon mode.",
+  path: "/download",
+  keywords: [
+    "download EloPhanto",
+    "install AI agent",
+    "local AI agent install",
+    "self hosted AI agent",
+    "open source AI agent",
+  ],
+})
+
+const downloadStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: siteConfig.name,
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "macOS, Linux, Windows via WSL",
+  url: siteConfig.url,
+  downloadUrl: absoluteUrl("/download"),
+  softwareVersion: "0.1.0",
+  description: metadata.description,
 }
 
 export default function DownloadPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 pt-32 pb-24 sm:px-8 sm:pt-40 lg:px-12">
+      <JsonLd data={downloadStructuredData} />
+
       {/* Header */}
       <div className="mb-20">
         <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
           Install
         </span>
         <h1 className="mt-4 text-3xl font-light tracking-tight sm:text-4xl">
-          Three commands. That's it.
+          Three commands. That&apos;s it.
         </h1>
       </div>
 

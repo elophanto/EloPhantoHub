@@ -1,11 +1,21 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { JsonLd } from "@/components/json-ld"
+import { absoluteUrl, createMetadata, siteConfig } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Use Cases",
+export const metadata: Metadata = createMetadata({
+  title: "EloPhanto Use Cases - Autonomous AI Agent Workflows",
   description:
-    "Real-world use cases for EloPhanto — from autonomous web presence to self-building capabilities, development orchestration, and compound intelligence.",
-}
+    "Explore real-world autonomous AI agent use cases for EloPhanto, including coding teams, browser automation, research, revenue operations, and long-running goals.",
+  path: "/use-cases",
+  keywords: [
+    "AI agent use cases",
+    "autonomous AI workflows",
+    "AI browser agent use cases",
+    "AI coding agent use cases",
+    "AI agent revenue operations",
+  ],
+})
 
 const useCases = [
   {
@@ -143,8 +153,32 @@ const useCases = [
 ]
 
 export default function UseCasesPage() {
+  const useCaseStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "EloPhanto autonomous AI agent use cases",
+    description: metadata.description,
+    url: absoluteUrl("/use-cases"),
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: useCases.map((uc, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: uc.title,
+        description: uc.summary,
+      })),
+    },
+  }
+
   return (
     <div className="flex flex-col">
+      <JsonLd data={useCaseStructuredData} />
+
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 pt-28 sm:px-8 sm:pt-32 lg:px-12 lg:pt-36">
@@ -162,7 +196,7 @@ export default function UseCasesPage() {
           </div>
 
           <p className="mt-10 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-            EloPhanto doesn't automate tasks — it handles situations.
+            EloPhanto doesn&apos;t automate tasks — it handles situations.
             Situations are messy. An agent reads the situation, makes a
             judgment call, and adapts.
           </p>
@@ -238,7 +272,7 @@ export default function UseCasesPage() {
               have unexpected steps. Goals need strategy adjustments.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              An automation tool breaks when the script doesn't match reality.
+              An automation tool breaks when the script doesn&apos;t match reality.
               An agent reads the situation, makes a judgment call, and adapts —
               across browser, email, files, code, payments, and knowledge — all
               from a single persistent entity that remembers everything and gets

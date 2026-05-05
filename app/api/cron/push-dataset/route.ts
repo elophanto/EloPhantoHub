@@ -61,14 +61,7 @@ async function uploadToHF(
     }
   }
 
-  // Step 3: Create a commit with the LFS pointer file
-  const lfsPointer =
-    `version https://git-lfs.github.com/spec/v1\n` +
-    `oid sha256:${sha256}\n` +
-    `size ${size}\n`
-
-  const encodedPointer = Buffer.from(lfsPointer).toString("base64")
-
+  // Step 3: Create a commit that references the uploaded LFS object.
   const ndjsonLines = [
     JSON.stringify({
       key: "header",

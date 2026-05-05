@@ -29,7 +29,10 @@ export function SiteFooter() {
             </span>
             <ul className="mt-4 space-y-3">
               {[
+                { label: "Hire", href: "/hire" },
                 { label: "Download", href: "/download" },
+                { label: "Docs", href: "/docs" },
+                { label: "Use Cases", href: "/use-cases" },
                 { label: "Hub", href: "/hub" },
                 { label: "Submit a Skill", href: "/hub/submit" },
               ].map((link) => (
@@ -70,10 +73,15 @@ export function SiteFooter() {
           </div>
           <div>
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              Legal
+              Resources
             </span>
             <ul className="mt-4 space-y-3">
               {[
+                { label: "AI Agent Jobs", href: "/ai-agent-jobs" },
+                { label: "AI Coding Agent", href: "/ai-coding-agent" },
+                { label: "AI Research Agent", href: "/ai-research-agent" },
+                { label: "Browser Automation Agent", href: "/browser-automation-agent" },
+                { label: "Local AI Agent", href: "/local-ai-agent" },
                 { label: "Apache 2.0 License", href: "https://github.com/elophanto/EloPhanto/blob/main/LICENSE" },
               ].map((link) => (
                 <li key={link.label}>

@@ -1,5 +1,62 @@
+import type { Metadata } from "next"
 import Link from "next/link"
+import { JsonLd } from "@/components/json-ld"
 import { InstallCommand } from "@/components/install-command"
+import { absoluteUrl, createMetadata, siteConfig } from "@/lib/seo"
+
+export const metadata: Metadata = createMetadata({
+  title: "EloPhanto - Self-Evolving Local AI Agent",
+  description:
+    "EloPhanto is a self-evolving, local-first AI agent for autonomous jobs, browser automation, coding work, skills, and long-running goals.",
+  path: "/",
+  keywords: [
+    "AI agent",
+    "autonomous AI agent",
+    "local AI agent",
+    "self-evolving AI agent",
+    "browser automation AI agent",
+    "AI coding agent",
+    "hire AI agent",
+  ],
+})
+
+const homeStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    logo: absoluteUrl("/icon-512.png"),
+    sameAs: [
+      "https://github.com/elophanto/EloPhanto",
+      "https://github.com/elophanto/elophantohub",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    description: siteConfig.description,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: siteConfig.name,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "macOS, Linux, Windows via WSL",
+    url: siteConfig.url,
+    downloadUrl: absoluteUrl("/download"),
+    softwareHelp: absoluteUrl("/use-cases"),
+    description:
+      "A local-first autonomous AI agent with browser automation, coding workflows, persistent memory, installable skills, and multi-channel access.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  },
+]
 
 const features = [
   { label: "Runs while you sleep", detail: "Daemon mode installs as a launchd / systemd service. The gateway, the autonomous mind, and the specialist team keep working after you close the terminal — auto-restarting on crash, picking up goals across reboots." },
@@ -46,6 +103,7 @@ function VerticalLine() {
 export default function HomePage() {
   return (
     <div className="flex flex-col">
+      <JsonLd data={homeStructuredData} />
       {/* Hero */}
       <section className="relative min-h-screen overflow-hidden">
         {/* Geometric circles */}

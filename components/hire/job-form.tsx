@@ -286,7 +286,7 @@ export function JobForm() {
       setErrorMsg((e as Error).message || "Something went wrong.")
       setStage("error")
     }
-  }, [publicKey, treasuryPubkey, decimals, priceRaw, connection, sendTransaction, task, email])
+  }, [publicKey, treasuryPubkey, decimals, priceRaw, tokenProgramId, connection, sendTransaction, task, email])
 
   if (stage === "done" && jobId) {
     return (

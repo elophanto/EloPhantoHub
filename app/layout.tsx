@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Analytics } from "@vercel/analytics/next"
+import { siteConfig } from "@/lib/seo"
 import "./globals.css"
 
 const geistSans = Geist({
@@ -18,12 +19,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "EloPhanto — A self-evolving AI agent",
+    default: "EloPhanto - Self-Evolving Local AI Agent",
     template: "%s | EloPhanto",
   },
-  description:
-    "A self-evolving AI agent that lives on your machine. Local-first, multi-channel, browser-capable — learns as it works.",
-  metadataBase: new URL("https://elophanto.com"),
+  description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
   keywords: [
     "AI agent",
     "local AI",
@@ -51,33 +51,6 @@ export const metadata: Metadata = {
     apple: { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
   },
   manifest: "/site.webmanifest",
-  openGraph: {
-    title: "EloPhanto — A self-evolving AI agent",
-    description:
-      "A self-evolving AI agent that lives on your machine. Local-first, multi-channel, browser-capable — learns as it works.",
-    url: "https://elophanto.com",
-    siteName: "EloPhanto",
-    locale: "en_US",
-    type: "website",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "EloPhanto — A self-evolving AI agent",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "EloPhanto — A self-evolving AI agent",
-    description:
-      "A self-evolving AI agent that lives on your machine. Local-first, multi-channel, browser-capable — learns as it works.",
-    images: ["/og-image.png"],
-  },
-  alternates: {
-    canonical: "https://elophanto.com",
-  },
 }
 
 export default function RootLayout({

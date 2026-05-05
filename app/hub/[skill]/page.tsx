@@ -9,8 +9,10 @@ import {
   GitBranch,
   Package,
 } from "lucide-react"
+import { JsonLd } from "@/components/json-ld"
 import { InstallCommand } from "@/components/install-command"
 import { SkillCard } from "@/components/skill-card"
+import { absoluteUrl, createMetadata, siteConfig } from "@/lib/seo"
 import {
   getAllSkillNames,
   getSkillByName,
@@ -37,10 +39,18 @@ export async function generateMetadata({
   const { skill: skillName } = await params
   const skill = await getSkillByName(skillName)
   if (!skill) return { title: "Skill Not Found" }
-  return {
-    title: `${skill.name} — EloPhantoHub`,
+  return createMetadata({
+    title: `${skill.name} EloPhanto Skill - AI Agent Capability`,
     description: skill.description,
-  }
+    path: `/hub/${skill.name}`,
+    keywords: [
+      skill.name,
+      `${skill.name} skill`,
+      "EloPhanto skill",
+      "AI agent skill",
+      ...skill.tags,
+    ],
+  })
 }
 
 export default async function SkillDetailPage({
@@ -53,9 +63,71 @@ export default async function SkillDetailPage({
   if (!skill) notFound()
 
   const related = await getRelatedSkills(skill)
+  const skillPath = `/hub/${skill.name}`
+  const skillUseCases = [
+    `Install ${skill.name} when your EloPhanto agent needs ${skill.category} capabilities.`,
+    `Use it for workflows related to ${skill.tags.slice(0, 3).join(", ")}.`,
+    `Keep the skill versioned, auditable, and compatible with EloPhanto ${skill.elophanto_version}.`,
+  ]
+  const skillStructuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: `${skill.name} EloPhanto skill`,
+      description: skill.description,
+      url: absoluteUrl(skillPath),
+      datePublished: skill.created_at,
+      dateModified: skill.updated_at,
+      author: {
+        "@type": "Organization",
+        name: skill.author,
+      },
+      publisher: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+      },
+      keywords: skill.tags.join(", "),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareSourceCode",
+      name: skill.name,
+      description: skill.description,
+      codeRepository: skill.url,
+      license: skill.license,
+      programmingLanguage: skill.tags.includes("python")
+        ? "Python"
+        : skill.tags.includes("typescript")
+          ? "TypeScript"
+          : undefined,
+      version: skill.version,
+      runtimePlatform: "EloPhanto",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "EloPhantoHub",
+          item: absoluteUrl("/hub"),
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: skill.name,
+          item: absoluteUrl(skillPath),
+        },
+      ],
+    },
+  ]
 
   return (
     <div className="mx-auto max-w-5xl px-6 pt-32 pb-24 sm:px-8 sm:pt-40 lg:px-12">
+      <JsonLd data={skillStructuredData} />
+
       {/* Header */}
       <div className="mb-16">
         <div className="mb-4 flex items-center gap-3">
@@ -138,6 +210,25 @@ export default async function SkillDetailPage({
                 {skill.elophanto_version}
               </span>
             </div>
+          </div>
+
+          {/* About */}
+          <div className="mb-12">
+            <h2 className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              What this skill adds
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              {skill.description} It is published for EloPhanto agents as a
+              {skill.bundled ? " bundled" : ""} {skill.category} skill and can
+              be installed from EloPhantoHub with one command.
+            </p>
+            <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted-foreground">
+              {skillUseCases.map((item) => (
+                <li key={item} className="border-l border-border/60 pl-4">
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Tags */}

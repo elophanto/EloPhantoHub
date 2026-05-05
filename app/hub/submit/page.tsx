@@ -1,10 +1,19 @@
 import type { Metadata } from "next"
-import { InstallCommand } from "@/components/install-command"
+import { JsonLd } from "@/components/json-ld"
+import { absoluteUrl, createMetadata, siteConfig } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Submit a Skill",
-  description: "Learn how to create and submit skills to the EloPhantoHub.",
-}
+export const metadata: Metadata = createMetadata({
+  title: "Submit an EloPhanto Skill - Publish AI Agent Capabilities",
+  description:
+    "Learn how to create, validate, and submit skills to EloPhantoHub through the GitHub pull request workflow.",
+  path: "/hub/submit",
+  keywords: [
+    "submit AI agent skill",
+    "EloPhantoHub skill",
+    "AI agent plugin",
+    "create AI agent skills",
+  ],
+})
 
 const steps = [
   {
@@ -67,8 +76,28 @@ const tiers = [
 ]
 
 export default function SubmitPage() {
+  const submitStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Submit a skill to EloPhantoHub",
+    description: metadata.description,
+    url: absoluteUrl("/hub/submit"),
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
+    step: steps.map((step) => ({
+      "@type": "HowToStep",
+      name: step.title,
+      text: step.description,
+    })),
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-6 pt-32 pb-24 sm:px-8 sm:pt-40 lg:px-12">
+      <JsonLd data={submitStructuredData} />
+
       {/* Header */}
       <div className="mb-16">
         <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
