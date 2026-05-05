@@ -8,10 +8,17 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
 
-const navLinks: { href: string; label: string; disabled?: boolean; external?: boolean }[] = [
+const navLinks: {
+  href: string
+  label: string
+  disabled?: boolean
+  external?: boolean
+  featured?: boolean
+}[] = [
   { href: "/", label: "Home" },
   { href: "/use-cases", label: "Use Cases" },
   { href: "/hub", label: "Hub" },
+  { href: "/hire", label: "Hire", featured: true },
   { href: "/download", label: "Download" },
   { href: "https://docs.elophanto.com", label: "Docs", external: true },
   { href: "https://pump.fun/coin/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump", label: "$ELO", external: true },
@@ -37,8 +44,23 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) =>
-            link.external ? (
+          {navLinks.map((link) => {
+            if (link.featured && !link.disabled) {
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="group inline-flex items-center gap-2 border border-foreground/80 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.15em] transition-colors hover:bg-foreground hover:text-background"
+                >
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/60" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  </span>
+                  {link.label}
+                </Link>
+              )
+            }
+            return link.external ? (
               <a
                 key={link.href}
                 href={link.href}
@@ -61,7 +83,7 @@ export function SiteHeader() {
                 {link.label}
               </Link>
             )
-          )}
+          })}
         </nav>
 
         <div className="flex items-center gap-4">
@@ -85,8 +107,24 @@ export function SiteHeader() {
                 EloPhanto
               </SheetTitle>
               <nav className="mt-12 flex flex-col gap-1">
-                {navLinks.map((link) =>
-                  link.external ? (
+                {navLinks.map((link) => {
+                  if (link.featured && !link.disabled) {
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className="mt-2 inline-flex items-center gap-2 border border-foreground/80 px-3 py-2.5 font-mono text-xs uppercase tracking-[0.15em]"
+                      >
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/60" />
+                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        </span>
+                        {link.label}
+                      </Link>
+                    )
+                  }
+                  return link.external ? (
                     <a
                       key={link.href}
                       href={link.href}
@@ -111,7 +149,7 @@ export function SiteHeader() {
                       {link.label}
                     </Link>
                   )
-                )}
+                })}
               </nav>
             </SheetContent>
           </Sheet>
