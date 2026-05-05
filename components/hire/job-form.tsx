@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import {
+  ComputeBudgetProgram,
   PublicKey,
   Transaction,
   TransactionInstruction,
@@ -190,7 +191,13 @@ export function JobForm() {
         ASSOCIATED_TOKEN_PROGRAM_ID
       )
 
-      const ixs: TransactionInstruction[] = []
+      const ixs: TransactionInstruction[] = [
+        // Priority fee — without this, slow public RPCs let the blockhash
+        // expire before the leader picks the tx up. ~50k µLamports/CU is
+        // enough for a non-congested mainnet.
+        ComputeBudgetProgram.setComputeUnitLimit({ units: 100_000 }),
+        ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 50_000 }),
+      ]
       const toInfo = await connection.getAccountInfo(toAta)
       if (!toInfo) {
         ixs.push(
@@ -225,11 +232,38 @@ export function JobForm() {
         lastValidBlockHeight,
       }).add(...ixs)
 
-      const sig = await sendTransaction(tx, connection)
-      await connection.confirmTransaction(
-        { signature: sig, blockhash, lastValidBlockHeight },
-        "confirmed"
-      )
+      // Send with retries so a slow RPC re-broadcasts to leaders rather than
+      // sending once and giving up.
+      const sig = await sendTransaction(tx, connection, {
+        skipPreflight: false,
+        maxRetries: 5,
+        preflightCommitment: "confirmed",
+      })
+
+      // Poll status with re-broadcast loop until confirmed or block height
+      // exceeded. Plain confirmTransaction times out silently on slow RPCs.
+      const startedAt = Date.now()
+      const TIMEOUT_MS = 90_000
+      while (true) {
+        const status = await connection.getSignatureStatus(sig, {
+          searchTransactionHistory: false,
+        })
+        const cs = status?.value?.confirmationStatus
+        if (cs === "confirmed" || cs === "finalized") break
+        if (status?.value?.err) {
+          throw new Error(`tx failed: ${JSON.stringify(status.value.err)}`)
+        }
+        const currentHeight = await connection.getBlockHeight("confirmed")
+        if (currentHeight > lastValidBlockHeight) {
+          throw new Error(
+            "Network was slow and the transaction expired. Try again — we increased priority fees."
+          )
+        }
+        if (Date.now() - startedAt > TIMEOUT_MS) {
+          throw new Error("Timed out waiting for confirmation. Try again.")
+        }
+        await new Promise((r) => setTimeout(r, 1500))
+      }
 
       setStage("submitting")
       const res = await fetch("/api/jobs", {
