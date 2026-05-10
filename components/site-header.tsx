@@ -22,6 +22,7 @@ const navLinks: {
   { href: "/download", label: "Download" },
   { href: "/docs", label: "Docs" },
   { href: "https://pump.fun/coin/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump", label: "$ELO", external: true },
+  { href: "/airdrop", label: "Airdrop" },
 ]
 
 export function SiteHeader() {
