@@ -19,7 +19,7 @@ async function uploadToHF(
 
   // Step 1: Request LFS upload URL via batch API
   const lfsResp = await fetch(
-    `https://huggingface.co/api/datasets/${HF_REPO}.git/info/lfs/objects/batch`,
+    `https://huggingface.co/datasets/${HF_REPO}.git/info/lfs/objects/batch`,
     {
       method: "POST",
       headers: {
