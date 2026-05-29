@@ -62,18 +62,12 @@ const homeStructuredData = [
 ]
 
 const features = [
-  { label: "A self-model, not a system prompt", detail: "Identity, ego, and affect are mechanically wired – the LLM never writes its own numbers. Confidence moves on real failure signals; emotion decays on a clock. Most agents are a cold start every conversation. This one isn't." },
-  { label: "It extends itself", detail: "Hits a task it has no tool for? It researches, designs, writes the plugin, tests it, deploys it, then uses it. Next time it already knows how. The agent grows; it isn't a script that executes." },
-  { label: "Clones into a team", detail: "When work goes parallel it spawns persistent specialists – each a full EloPhanto with its own identity, vault, knowledge, and autonomous mind. Delegate, review, teach. Trust scores rise; high performers get auto-approved." },
-  { label: "Sandboxed kids for dangerous work", detail: "Need rm -rf, an untrusted install, a fork bomb? It spawns a disposable kid agent in a hardened Docker container – cap-drop=ALL, read-only rootfs, non-root, no host bind-mounts. Blast radius: zero." },
-  { label: "Decentralized, agent-to-agent", detail: "Agents on different machines, behind different NATs, find and talk directly over libp2p – Ed25519 identity, Kademlia DHT, hole-punching, relay fallback. No platform in the middle, no vendor that can revoke access." },
-  { label: "Your real browser", detail: "Real Chrome with your sessions and cookies – already logged into AWS, Gmail, X. 49 browser tools, undetectable, plus pixel-level control of any desktop app via screenshot + click." },
-  { label: "Runs while you sleep", detail: "Daemon mode installs as a launchd / systemd service. The autonomous mind keeps thinking between your messages and across reboots, auto-restarting on crash, picking up goals where it left off." },
-  { label: "No context limit", detail: "On long, deep work it calls itself on focused slices of the problem, backed by an indexed store it can query. It keeps the thread across tasks most agents would drop halfway through." },
-  { label: "Pick any LLM", detail: "OpenAI GPT-5.5, OpenRouter, Z.ai GLM, Kimi K2.5, HuggingFace, local Ollama, or your existing ChatGPT Plus subscription via Codex OAuth. Routes the right model per task automatically." },
-  { label: "Self-custody economic stack", detail: "Its own email inbox, TOTP 2FA, and a wallet on Solana or Base whose keys it holds in an encrypted vault. Jupiter swaps, USDC payments, daily and per-merchant limits – anything above asks first." },
-  { label: "177+ skills out of the box", detail: "Engineering, design, marketing, ops, DeFi, Solana – every skill ships with a machine-checked Verify gate. Plus a community hub with a 7-layer security pipeline and one-command install." },
-  { label: "Plans get reviewed", detail: "Before risky work, three LLM specialists – CEO, engineering, design – score the plan across six dimensions and either auto-approve or escalate. The agent doesn't ship on a hunch." },
+  { label: "It learns how you work", detail: "Correct it once and it keeps the lesson. Findings from every task load automatically on the next similar one, so you stop explaining the same thing twice." },
+  { label: "It builds its own tools", detail: "Hit a task it can't do? It researches, writes the tool, tests it, and uses it, then has it ready forever. The agent grows; it isn't a fixed script." },
+  { label: "It works while you sleep", detail: "Daemon mode keeps the mind thinking between your messages and across reboots. Close the laptop, come back to finished work." },
+  { label: "It becomes a team", detail: "When work goes parallel it spawns specialist clones, each a full agent with its own memory. Risky plans get reviewed by three models before anything ships." },
+  { label: "Your real browser, your accounts", detail: "Real Chrome with your own sessions and cookies, 49 tools, plus pixel-level control of any desktop app. Already logged in everywhere you are." },
+  { label: "Dangerous work, contained", detail: "It runs rm -rf, untrusted installs, anything risky inside a locked-down throwaway container that can't touch your machine. Blast radius: zero." },
 ]
 
 const stats: { to?: number; suffix?: string; text?: string; label: string }[] = [
@@ -156,6 +150,9 @@ export default function HomePage() {
                 <InstallCommand command="./start.sh --daemon" />
               </div>
             </div>
+            <p className="font-mono text-[10px] tracking-[0.1em] text-muted-foreground/60">
+              A few minutes to set up: one API key, or your existing ChatGPT login. Then you&apos;re talking to it.
+            </p>
           </div>
 
           <div className="mt-10 flex items-center gap-8">
@@ -281,19 +278,20 @@ export default function HomePage() {
               How it grows
             </span>
             <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
-              Day 1 to week 3.
+              Useful in minutes.<br /><em className="font-serif italic">Irreplaceable in weeks.</em>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-              EloPhanto starts from scratch: no identity, no knowledge, no calibrated confidence.
-              You operate it manually at first; every interaction feeds the layers underneath.
+              From the first message it has 200+ tools and every channel, and it does real work
+              right away. What changes over the weeks is how well it knows your work, how much it
+              does on its own, and how much you let it.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { phase: "Day 1", title: "Blank slate", body: "You name it. Identity writes its first nature.md. 200+ tools unused, ego empty, ask_always mode – you approve everything." },
-              { phase: "Week 1", title: "You drive", body: "Small tasks, you correct mistakes. Every “no” / “stop” / “didn't work” is caught by the correction detector and lands as a humbling event." },
-              { phase: "Week 2", title: "Loops kick in", body: "Lessons auto-retrieve on similar tasks; skills auto-load; verification feeds PASS/FAIL into ego. Flip to smart_auto and safe tools start auto-approving." },
-              { phase: "Week 3+", title: "Shape emerges", body: "Goals run across sessions. The autonomous mind handles work between messages. Specialist clones take workstreams. You're the operator, not the driver." },
+              { phase: "Day 1", title: "Working immediately", body: "Clone it, name it, go. 200+ tools and every channel are live from the first message. You approve each action while you get the measure of it." },
+              { phase: "Week 1", title: "It learns your way", body: "You correct mistakes and it keeps them. Every “no” or “not like that” is caught and saved as a lesson it won't repeat." },
+              { phase: "Week 2", title: "It stops asking", body: "Lessons load automatically on similar tasks, skills kick in, and the safe work starts auto-approving. You stop repeating yourself." },
+              { phase: "Week 3+", title: "It runs itself", body: "Goals run across sessions, the background mind works between your messages, and specialist clones take whole workstreams. You're the operator, not the driver." },
             ].map((step) => (
               <div key={step.phase} className="bg-background p-6 sm:p-8">
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{step.phase}</span>
@@ -308,10 +306,15 @@ export default function HomePage() {
       {/* Capabilities */}
       <section className="border-t border-border/50">
         <Reveal as="div" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
-          <div className="mb-16">
+          <div className="mb-16 max-w-3xl">
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Capabilities</span>
+            <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+              200+ tools, 177+ skills, seven model providers (including your own ChatGPT
+              subscription), its own wallet and inbox, and every major channel. A few of the
+              things that means in practice:
+            </p>
           </div>
-          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
               <div key={feature.label} className="bg-background p-6 sm:p-8">
                 <h3 className="font-mono text-xs uppercase tracking-[0.1em]">{feature.label}</h3>
