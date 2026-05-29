@@ -113,11 +113,11 @@ export default function EloPage() {
           <em className="font-serif italic">$ELO is how.</em>
         </h1>
         <p className="mt-6 max-w-2xl font-light text-lg leading-relaxed text-muted-foreground">
-          There&apos;s no VC, no paid tier, no data resale. EloPhanto is open-source
-          (Apache 2.0) and built in the open by one team. $ELO is the funding
-          mechanism that keeps development going – and the reference agent runs the
-          token as part of its own autonomous on-chain economy. Hold it if you want to
-          back the work and share in what the agent builds.
+          No VC, no investors, no data resale. EloPhanto is open-source (Apache 2.0)
+          and built in the open by one team. $ELO is the funding mechanism that keeps
+          development going, and the reference agent runs the token as part of its own
+          autonomous on-chain economy. Hold it if you want to back the work and share
+          in what the agent builds.
         </p>
 
         {/* Self-funding explainer */}

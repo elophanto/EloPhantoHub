@@ -42,6 +42,10 @@ export default function DownloadPage() {
         <h1 className="mt-4 text-3xl font-light tracking-tight sm:text-4xl">
           Three commands. That&apos;s it.
         </h1>
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
+          Clone it, run setup, and your agent is up: in your terminal, a web
+          dashboard, or running quietly in the background while you sleep.
+        </p>
       </div>
 
       {/* Steps */}
