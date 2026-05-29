@@ -81,6 +81,8 @@
   --sidebar-accent-foreground: oklch(0.12 0.01 60);
   --sidebar-border: oklch(0.88 0.005 80);
   --sidebar-ring: oklch(0.12 0.01 60);
+  /* Brand accent — the orb's violet, sparing use (links, active nav) */
+  --brand: #6d28d9;
 }
 
 /* Dark — deep cool charcoal, ex machina feel */
@@ -116,6 +118,7 @@
   --sidebar-accent-foreground: oklch(0.88 0.008 80);
   --sidebar-border: oklch(1 0 0 / 8%);
   --sidebar-ring: oklch(0.88 0.008 80);
+  --brand: #a78bfa;
 }
 
 @layer base {
@@ -161,4 +164,68 @@
   border: 1px solid currentColor;
   opacity: 0.06;
   pointer-events: none;
+}
+
+/* Dot-grid texture — dark mode only, matches the web dashboard */
+.dark body {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    oklch(1 0 0 / 3%) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+}
+
+/* ── Agent living core (ported from the web dashboard, pure CSS) ──── */
+
+/* Registered custom colors so the orb's gradient can ANIMATE between
+ * hues (plain background-image can't transition). Safari 16.4+, Chrome,
+ * Firefox 128+. inherits:true so the colors flow to child layers. */
+@property --core-c1 { syntax: "<color>"; inherits: true; initial-value: #efe9ff; }
+@property --core-c2 { syntax: "<color>"; inherits: true; initial-value: #8b5cf6; }
+@property --core-c3 { syntax: "<color>"; inherits: true; initial-value: #5b21b6; }
+
+/* Glow reads strong on the dark dashboard; dim it on the light page so
+ * it's a refined halo, not a wash. */
+.orb-halo { opacity: 0.32; }
+.dark .orb-halo { opacity: 0.55; }
+
+@keyframes core-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.92; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+@keyframes core-glow {
+  0%, 100% { opacity: 0.30; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(1.12); }
+}
+@keyframes core-ring {
+  0%, 100% { opacity: 0.16; transform: scale(0.98); }
+  50% { opacity: 0.40; transform: scale(1.06); }
+}
+@keyframes core-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── Scroll reveal — Safari-safe, no JS-animation library ─────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .core-anim {
+    animation: none !important;
+  }
 }

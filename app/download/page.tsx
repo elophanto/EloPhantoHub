@@ -119,7 +119,7 @@ export default function DownloadPage() {
             VS Code Extension
           </span>
           <p className="text-sm text-muted-foreground">
-            Install from <code className="font-mono text-xs">vscode-extension/</code> — connects to the gateway as another channel.
+            Install from <code className="font-mono text-xs">vscode-extension/</code> – connects to the gateway as another channel.
           </p>
         </div>
         <div className="bg-background p-6 sm:p-8">

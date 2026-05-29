@@ -22,11 +22,11 @@ const useCases = [
     number: "01",
     title: "Autonomous Web Presence",
     summary:
-      "EloPhanto doesn't just post content — it exists on the internet.",
+      "EloPhanto doesn't just post content – it exists on the internet.",
     description:
       "On first boot it discovers its own identity through reflection. Then it gets an email inbox, creates accounts on platforms, builds profiles, writes bios, uploads avatars. It handles email verification and 2FA on its own. It stores every credential in an encrypted vault. It remembers where it has accounts and what it posted.",
     detail:
-      "You say \"go make yourself known\" and it researches platforms via Google, evaluates which ones are relevant, registers, and starts participating. Not one-shot — over days and weeks, revisiting platforms, building reputation, responding to interactions.",
+      "You say \"go make yourself known\" and it researches platforms via Google, evaluates which ones are relevant, registers, and starts participating. Not one-shot – over days and weeks, revisiting platforms, building reputation, responding to interactions.",
     agentic:
       "It's not executing a script. It's making judgment calls about which platforms matter, what to say, when to come back. It checks its own knowledge base to avoid repeating past work. It adapts based on what works.",
   },
@@ -38,7 +38,7 @@ const useCases = [
     description:
       "You say \"fix the billing bug on branch main, add the new API endpoint from the spec, and refactor the auth middleware.\" It spawns three separate coding agents in isolated git worktrees, each with its own tmux session. Each agent gets a knowledge-enriched prompt pulled from your project's docs, conventions, and architecture files.",
     detail:
-      "While they work, EloPhanto monitors their PRs, checks CI status, and pings you when reviews are ready. If an agent goes off track, you redirect it mid-task. When code is written by one model, it's reviewed by a different model architecture — because different LLMs have different blind spots.",
+      "While they work, EloPhanto monitors their PRs, checks CI status, and pings you when reviews are ready. If an agent goes off track, you redirect it mid-task. When code is written by one model, it's reviewed by a different model architecture – because different LLMs have different blind spots.",
     agentic:
       "EloPhanto isn't just launching processes. It's an orchestrator that understands context, routes work based on agent capabilities, enforces cross-model review, handles failures, and keeps you in the loop through whatever channel you prefer.",
   },
@@ -46,7 +46,7 @@ const useCases = [
     number: "03",
     title: "Self-Building Capabilities",
     summary:
-      "Ask it to do something it can't do yet — and it will build the capability.",
+      "Ask it to do something it can't do yet – and it will build the capability.",
     description:
       "The full pipeline: research the problem, design a solution, write the plugin code, write unit tests, run the tests, review the code with a different LLM, deploy if everything passes, document what it built in its own changelog.",
     detail:
@@ -70,13 +70,13 @@ const useCases = [
     number: "05",
     title: "Long-Running Autonomous Goals",
     summary:
-      "That's not a task — that's a goal that takes weeks.",
+      "That's not a task – that's a goal that takes weeks.",
     description:
       "\"Grow EloPhanto's GitHub stars to 1,000.\" EloPhanto decomposes it into checkpoints: research promotion platforms, create accounts, write posts, engage with communities, track results, adjust strategy. Each checkpoint executes autonomously in the background.",
     detail:
       "Progress persists across restarts. It self-evaluates after each phase and revises the plan if something isn't working. While a goal runs, you can keep chatting about other things. Goals execute checkpoint-by-checkpoint without blocking the conversation.",
     agentic:
-      "This is strategic execution over time, not a one-shot task. It plans, acts, measures, learns, and adjusts — the same loop a human would follow, except it doesn't forget, doesn't get tired, and doesn't need motivation.",
+      "This is strategic execution over time, not a one-shot task. It plans, acts, measures, learns, and adjusts – the same loop a human would follow, except it doesn't forget, doesn't get tired, and doesn't need motivation.",
   },
   {
     number: "06",
@@ -84,7 +84,7 @@ const useCases = [
     summary:
       "Own email, own identity, own way of speaking. Send it to interact with the world as your proxy.",
     description:
-      "\"Reply to the investor emails in my inbox — be professional, use our latest metrics from the pitch deck, schedule follow-up meetings.\" It reads the emails, understands context from your knowledge base, composes appropriate responses, handles the back-and-forth.",
+      "\"Reply to the investor emails in my inbox – be professional, use our latest metrics from the pitch deck, schedule follow-up meetings.\" It reads the emails, understands context from your knowledge base, composes appropriate responses, handles the back-and-forth.",
     detail:
       "Need it to attend to something while you're asleep? It monitors your inbox in the background and pushes notifications to your Telegram. It can triage based on urgency, draft responses for your review, or handle routine ones autonomously.",
     agentic:
@@ -100,7 +100,7 @@ const useCases = [
     detail:
       "This uses a real Chrome browser with real DOM interaction, handles CAPTCHAs through its profile, manages cookies and sessions, and deals with the messy reality of different sign-up flows, confirmation dialogs, and verification emails.",
     agentic:
-      "Real web registration is chaotic — every site is different, flows change, elements are dynamic, modals pop up, errors happen. EloPhanto adapts in real-time by reading the page state after every action and recovering from unexpected states.",
+      "Real web registration is chaotic – every site is different, flows change, elements are dynamic, modals pop up, errors happen. EloPhanto adapts in real-time by reading the page state after every action and recovering from unexpected states.",
   },
   {
     number: "08",
@@ -112,19 +112,19 @@ const useCases = [
     detail:
       "\"Research every competitor's pricing page, extract their tiers and features into a spreadsheet, identify gaps in our offering, and create a report with recommendations.\"",
     agentic:
-      "The research isn't the end product — it's the beginning. The agent closes the loop between discovering information and taking action on it. Research, synthesize, decide, act, verify.",
+      "The research isn't the end product – it's the beginning. The agent closes the loop between discovering information and taking action on it. Research, synthesize, decide, act, verify.",
   },
   {
     number: "09",
     title: "Autonomous Revenue Operations",
     summary:
-      "Own crypto wallet, own browser sessions, own email — and the judgment to use them together.",
+      "Own crypto wallet, own browser sessions, own email – and the judgment to use them together.",
     description:
       "\"Find freelance gigs that match my skills on Upwork, Fiverr, and relevant subreddits. Apply to the ones under $500, handle the client communication, deliver the work using coding agents, collect payment in USDC.\" The entire pipeline: discovery, outreach, negotiation, delivery, invoicing, payment collection.",
     detail:
       "Or: \"Monitor crypto arbitrage opportunities between DEXs on Base. When the spread exceeds 0.5% after gas, execute the trade.\" Spending limits are enforced ($100/tx, $500/day, $5K/month by default). Every transaction requires preview-before-execute. Full audit trail.",
     agentic:
-      "This isn't a payment API or a trading bot. It's an entity that understands money as a tool for achieving goals. The same agent that writes code can sell services, manage clients, and collect payment — because it has all the capabilities a human freelancer has.",
+      "This isn't a payment API or a trading bot. It's an entity that understands money as a tool for achieving goals. The same agent that writes code can sell services, manage clients, and collect payment – because it has all the capabilities a human freelancer has.",
   },
   {
     number: "10",
@@ -132,11 +132,11 @@ const useCases = [
     summary:
       "EloPhanto doesn't go idle when you stop talking to it.",
     description:
-      "Between conversations, its autonomous mind runs a background thinking loop — evaluating what needs doing, executing, and scheduling its own next wakeup. It checks the scratchpad from its last cycle, handles pending tasks, posts content, follows up on emails, scans for opportunities.",
+      "Between conversations, its autonomous mind runs a background thinking loop – evaluating what needs doing, executing, and scheduling its own next wakeup. It checks the scratchpad from its last cycle, handles pending tasks, posts content, follows up on emails, scans for opportunities.",
     detail:
-      "You come back, type a message. The mind pauses instantly. Your conversation gets full priority — no shared context, no interference. When you're done, the mind picks up where it left off. \"/mind\" shows status: cycles today, spend, last action, next wakeup, scratchpad.",
+      "You come back, type a message. The mind pauses instantly. Your conversation gets full priority – no shared context, no interference. When you're done, the mind picks up where it left off. \"/mind\" shows status: cycles today, spend, last action, next wakeup, scratchpad.",
     agentic:
-      "This isn't a cron job. Each wakeup, the LLM evaluates a priority stack — active goals, revenue opportunities, pending tasks, capability gaps, presence growth — and decides what's highest-value right now. It controls its own sleep interval based on urgency. It's a background worker with judgment, not a timer with scripts.",
+      "This isn't a cron job. Each wakeup, the LLM evaluates a priority stack – active goals, revenue opportunities, pending tasks, capability gaps, presence growth – and decides what's highest-value right now. It controls its own sleep interval based on urgency. It's a background worker with judgment, not a timer with scripts.",
   },
   {
     number: "11",
@@ -146,7 +146,7 @@ const useCases = [
     description:
       "It writes summaries of what it did, documents patterns it notices, records failures and lessons learned. All of this goes into its knowledge base with semantic search. Before starting a recurring task, it searches its own history: \"What did I do last time? What worked? What should I avoid?\"",
     detail:
-      "Over weeks and months, it accumulates genuine operational intelligence — not just data, but synthesized understanding of how things work, what your preferences are, and what strategies succeed.",
+      "Over weeks and months, it accumulates genuine operational intelligence – not just data, but synthesized understanding of how things work, what your preferences are, and what strategies succeed.",
     agentic:
       "This is the difference between a tool and an entity. Tools do what you tell them. An entity that maintains its own memory, reflects on its experience, and improves its approach over time is something fundamentally different.",
   },
@@ -196,7 +196,7 @@ export default function UseCasesPage() {
           </div>
 
           <p className="mt-10 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-            EloPhanto doesn&apos;t automate tasks — it handles situations.
+            EloPhanto doesn&apos;t automate tasks – it handles situations.
             Situations are messy. An agent reads the situation, makes a
             judgment call, and adapts.
           </p>
@@ -273,8 +273,8 @@ export default function UseCasesPage() {
             </p>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               An automation tool breaks when the script doesn&apos;t match reality.
-              An agent reads the situation, makes a judgment call, and adapts —
-              across browser, email, files, code, payments, and knowledge — all
+              An agent reads the situation, makes a judgment call, and adapts –
+              across browser, email, files, code, payments, and knowledge – all
               from a single persistent entity that remembers everything and gets
               better over time.
             </p>

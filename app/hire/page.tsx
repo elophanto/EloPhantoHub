@@ -130,10 +130,10 @@ export default function HirePage() {
           Hire an autonomous AI agent for real jobs.
         </h1>
         <p className="mt-6 max-w-2xl font-light text-lg leading-relaxed text-muted-foreground">
-          Describe the task. Pay 50,000 $ELO from your Solana wallet — or
+          Describe the task. Pay 50,000 $ELO from your Solana wallet – or
           buy $ELO inline with SOL or USDC via Jupiter if you don&rsquo;t hold
           it yet. The agent picks up the signed envelope, executes, and
-          replies to your email — usually within 24 hours.
+          replies to your email – usually within 24 hours.
         </p>
 
         <div className="mt-12">

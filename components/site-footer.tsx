@@ -20,7 +20,7 @@ export function SiteFooter() {
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              A self-evolving AI agent<br />that lives on your machine.
+              An autonomous AI agent<br />that works while you sleep.
             </p>
           </div>
           <div>
@@ -34,6 +34,7 @@ export function SiteFooter() {
                 { label: "Docs", href: "/docs" },
                 { label: "Use Cases", href: "/use-cases" },
                 { label: "Hub", href: "/hub" },
+                { label: "$ELO", href: "/elo" },
                 { label: "Submit a Skill", href: "/hub/submit" },
               ].map((link) => (
                 <li key={link.label}>

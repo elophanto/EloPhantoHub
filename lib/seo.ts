@@ -5,7 +5,7 @@ export const siteConfig = {
   url: "https://elophanto.com",
   ogImage: "/og-image.png",
   description:
-    "A self-evolving AI agent that lives on your machine. Local-first, multi-channel, browser-capable, and built to learn as it works.",
+    "An open-source autonomous AI agent with a self-model that actually moves – identity, ego, and affect grounded in published psychology. Runs locally: your machine, your keys, your data.",
 }
 
 type CreateMetadataOptions = {

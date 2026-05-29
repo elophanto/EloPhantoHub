@@ -2,7 +2,8 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
+import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
@@ -18,18 +19,33 @@ const navLinks: {
   { href: "/", label: "Home" },
   { href: "/use-cases", label: "Use Cases" },
   { href: "/hub", label: "Hub" },
-  { href: "/hire", label: "Hire", featured: true },
   { href: "/download", label: "Download" },
   { href: "/docs", label: "Docs" },
-  { href: "https://pump.fun/coin/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump", label: "$ELO", external: true },
-  { href: "/airdrop", label: "Airdrop" },
+  { href: "/elo", label: "$ELO" },
 ]
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname?.startsWith(href)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   return (
-    <header className="fixed top-0 z-50 w-full">
+    <header
+      className={`fixed top-0 z-50 w-full border-b transition-colors duration-300 ${
+        scrolled
+          ? "border-border/50 bg-background/70 backdrop-blur-xl"
+          : "border-transparent bg-transparent"
+      }`}
+    >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 sm:px-8 lg:px-12">
         <Link href="/" className="flex items-center gap-2.5">
           <Image
@@ -78,7 +94,9 @@ export function SiteHeader() {
                 className={`font-mono text-[11px] uppercase tracking-[0.15em] transition-opacity ${
                   link.disabled
                     ? "pointer-events-none opacity-20"
-                    : "opacity-50 hover:opacity-100"
+                    : isActive(link.href)
+                    ? "opacity-100"
+                    : "opacity-40 hover:opacity-100"
                 }`}
               >
                 {link.label}
@@ -144,6 +162,8 @@ export function SiteHeader() {
                       className={`py-3 font-mono text-xs uppercase tracking-[0.15em] transition-opacity ${
                         link.disabled
                           ? "pointer-events-none opacity-20"
+                          : isActive(link.href)
+                          ? "opacity-100"
                           : "opacity-50 hover:opacity-100"
                       }`}
                     >

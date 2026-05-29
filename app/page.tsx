@@ -2,21 +2,27 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { JsonLd } from "@/components/json-ld"
 import { InstallCommand } from "@/components/install-command"
+import { ProductShowcase } from "@/components/product-showcase"
+import { SelfModelWidget } from "@/components/self-model-widget"
+import { AgentCore } from "@/components/agent-core"
+import { Reveal } from "@/components/reveal"
+import { CountUp } from "@/components/count-up"
 import { absoluteUrl, createMetadata, siteConfig } from "@/lib/seo"
 
 export const metadata: Metadata = createMetadata({
-  title: "EloPhanto - Self-Evolving Local AI Agent",
+  title: "EloPhanto - The Autonomous AI Agent With a Self-Model",
   description:
-    "EloPhanto is a self-evolving, local-first AI agent for autonomous jobs, browser automation, coding work, skills, and long-running goals.",
+    "EloPhanto is an open-source autonomous AI agent that works on its own, learns from every task, and builds the tools it's missing. A real self-model – identity, ego, and affect – grounded in published psychology. Run it on your own machine or in the cloud.",
   path: "/",
   keywords: [
     "AI agent",
     "autonomous AI agent",
     "local AI agent",
     "self-evolving AI agent",
+    "agent self-model",
     "browser automation AI agent",
     "AI coding agent",
-    "hire AI agent",
+    "open source AI agent",
   ],
 })
 
@@ -30,6 +36,7 @@ const homeStructuredData = [
     sameAs: [
       "https://github.com/elophanto/EloPhanto",
       "https://github.com/elophanto/elophantohub",
+      "https://x.com/EloPhanto",
     ],
   },
   {
@@ -49,44 +56,38 @@ const homeStructuredData = [
     downloadUrl: absoluteUrl("/download"),
     softwareHelp: absoluteUrl("/use-cases"),
     description:
-      "A local-first autonomous AI agent with browser automation, coding workflows, persistent memory, installable skills, and multi-channel access.",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
+      "An open-source autonomous AI agent with an evolving self-model – identity, ego, and affect – plus browser automation, self-extension, a specialist swarm, and decentralized agent-to-agent networking. Run it on your own machine or in the cloud.",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
 ]
 
 const features = [
-  { label: "Runs while you sleep", detail: "Daemon mode installs as a launchd / systemd service. The gateway, the autonomous mind, and the specialist team keep working after you close the terminal — auto-restarting on crash, picking up goals across reboots." },
-  { label: "Already making money", detail: "$ELO live on Solana with the agent running its own pump.fun stream and X account. Polymarket orders on Polygon. Affiliate pipelines on YouTube and TikTok. Freelance gigs delivered, USDC collected. Same loop, same wallet." },
-  { label: "Sandboxed kids for dangerous work", detail: "Need to run rm -rf, an untrusted install, a fork bomb? It spawns a disposable kid agent inside a hardened Docker container — cap-drop=ALL, read-only rootfs, no host bind-mounts. Blast radius: zero." },
-  { label: "Builds its own tools", detail: "Hits something it can't do? Researches, designs, writes the plugin, tests it, deploys it, then uses it. Next time it already knows how. The agent grows; it isn't a script that executes." },
-  { label: "Clones itself into a team", detail: "Marketing, research, design, anything — each a full EloPhanto with its own identity, vault, and autonomous mind. Delegate, review, give feedback. Trust scores go up; high-trust specialists get auto-approved." },
-  { label: "Your real browser", detail: "Real Chrome, your sessions, your cookies — already logged into AWS, Gmail, Twitter. 49 tools, undetectable, plus pixel-level control of any desktop app via screenshot + click. Photoshop, Excel, Terminal — anything." },
-  { label: "Self-custody wallet", detail: "Solana + Base. The agent holds its own keys in an encrypted vault. Jupiter DEX swaps, USDC payments, daily and per-merchant spending limits. Anything above the limit asks first. You can export keys to Phantom." },
-  { label: "One agent, every channel", detail: "CLI, Web, VS Code, Telegram, Discord, Slack. Start a conversation in your IDE, finish it on your phone. Same memory, same identity, same context." },
-  { label: "Pick any LLM", detail: "OpenAI, OpenRouter, Kimi K2, Z.ai GLM, HuggingFace, local Ollama, or your existing ChatGPT Plus subscription via Codex OAuth. Routes the right model per task automatically." },
-  { label: "170 skills out of the box", detail: "Engineering, design, marketing, ops, DeFi, Solana — plus a community hub for one-command install. 75 organization role templates ready to spawn as specialists." },
-  { label: "Local-first, yours", detail: "Conversations, knowledge, vault, wallet — all on disk you control. No SaaS lock-in, no telemetry by default. Cloud LLMs are a backend; the agent itself is yours." },
-  { label: "Plans get reviewed", detail: "Before risky work, three LLM specialists — CEO, engineering, design — score the plan across six dimensions and either auto-approve or escalate. The agent doesn't ship code on a hunch." },
+  { label: "A self-model, not a system prompt", detail: "Identity, ego, and affect are mechanically wired – the LLM never writes its own numbers. Confidence moves on real failure signals; emotion decays on a clock. Most agents are a cold start every conversation. This one isn't." },
+  { label: "It extends itself", detail: "Hits a task it has no tool for? It researches, designs, writes the plugin, tests it, deploys it, then uses it. Next time it already knows how. The agent grows; it isn't a script that executes." },
+  { label: "Clones into a team", detail: "When work goes parallel it spawns persistent specialists – each a full EloPhanto with its own identity, vault, knowledge, and autonomous mind. Delegate, review, teach. Trust scores rise; high performers get auto-approved." },
+  { label: "Sandboxed kids for dangerous work", detail: "Need rm -rf, an untrusted install, a fork bomb? It spawns a disposable kid agent in a hardened Docker container – cap-drop=ALL, read-only rootfs, non-root, no host bind-mounts. Blast radius: zero." },
+  { label: "Decentralized, agent-to-agent", detail: "Agents on different machines, behind different NATs, find and talk directly over libp2p – Ed25519 identity, Kademlia DHT, hole-punching, relay fallback. No platform in the middle, no vendor that can revoke access." },
+  { label: "Your real browser", detail: "Real Chrome with your sessions and cookies – already logged into AWS, Gmail, X. 49 browser tools, undetectable, plus pixel-level control of any desktop app via screenshot + click." },
+  { label: "Runs while you sleep", detail: "Daemon mode installs as a launchd / systemd service. The autonomous mind keeps thinking between your messages and across reboots, auto-restarting on crash, picking up goals where it left off." },
+  { label: "No context limit", detail: "On long, deep work it calls itself on focused slices of the problem, backed by an indexed store it can query. It keeps the thread across tasks most agents would drop halfway through." },
+  { label: "Pick any LLM", detail: "OpenAI GPT-5.5, OpenRouter, Z.ai GLM, Kimi K2.5, HuggingFace, local Ollama, or your existing ChatGPT Plus subscription via Codex OAuth. Routes the right model per task automatically." },
+  { label: "Self-custody economic stack", detail: "Its own email inbox, TOTP 2FA, and a wallet on Solana or Base whose keys it holds in an encrypted vault. Jupiter swaps, USDC payments, daily and per-merchant limits – anything above asks first." },
+  { label: "177+ skills out of the box", detail: "Engineering, design, marketing, ops, DeFi, Solana – every skill ships with a machine-checked Verify gate. Plus a community hub with a 7-layer security pipeline and one-command install." },
+  { label: "Plans get reviewed", detail: "Before risky work, three LLM specialists – CEO, engineering, design – score the plan across six dimensions and either auto-approve or escalate. The agent doesn't ship on a hunch." },
 ]
 
-const stats = [
-  { value: "170", label: "Skills" },
-  { value: "170", label: "Tools" },
-  { value: "7", label: "LLM Providers" },
-  { value: "6", label: "Channels" },
-  { value: "24/7", label: "Autonomous" },
+const stats: { to?: number; suffix?: string; text?: string; label: string }[] = [
+  { to: 200, suffix: "+", label: "Tools" },
+  { to: 177, suffix: "+", label: "Skills" },
+  { to: 2400, suffix: "+", label: "Tests" },
+  { to: 7, label: "LLM Providers" },
+  { text: "24/7", label: "Autonomous" },
 ]
 
 function ArchLayer({ label, sublabel, muted = false }: { label: string; sublabel?: string; muted?: boolean }) {
   return (
-    <div className={`border border-border/50 px-6 py-5 text-center ${muted ? "bg-card/50" : ""}`}>
-      <span className="block font-mono text-[11px] uppercase tracking-[0.2em]">
-        {label}
-      </span>
+    <div className={`border border-border/50 px-6 py-4 text-center ${muted ? "bg-card/50" : ""}`}>
+      <span className="block font-mono text-[11px] uppercase tracking-[0.2em]">{label}</span>
       {sublabel && (
         <span className="mt-1.5 block font-mono text-[10px] tracking-[0.1em] text-muted-foreground">
           {sublabel}
@@ -97,224 +98,105 @@ function ArchLayer({ label, sublabel, muted = false }: { label: string; sublabel
 }
 
 function VerticalLine() {
-  return <div className="mx-auto h-8 w-px bg-border/40" />
+  return <div className="mx-auto h-6 w-px bg-border/40" />
 }
 
 export default function HomePage() {
   return (
     <div className="flex flex-col">
       <JsonLd data={homeStructuredData} />
-      {/* Hero */}
-      <section className="relative min-h-screen overflow-hidden">
-        {/* Geometric circles */}
-        <div className="geo-circle right-[10%] top-[15%] h-[500px] w-[500px] hidden lg:block" />
-        <div className="geo-circle right-[15%] top-[20%] h-[300px] w-[300px] hidden lg:block" />
 
-        <div className="relative mx-auto max-w-7xl px-6 pt-28 sm:px-8 sm:pt-32 lg:px-12 lg:pt-36">
-          {/* Crop mark label */}
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        {/* The agent's living core – the orb from the dashboard */}
+        <div className="pointer-events-none absolute inset-0 z-0 hidden lg:block">
+          <div className="relative mx-auto h-full max-w-7xl px-6 sm:px-8 lg:px-12">
+            <div className="absolute right-0 top-24 opacity-90 xl:right-2">
+              <AgentCore size={280} />
+            </div>
+          </div>
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-28 sm:px-8 sm:pt-32 lg:px-12 lg:pt-36">
           <div className="crop-marks inline-block p-8">
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-              Self-evolving AI Agent
+              Open-source autonomous AI agent
             </span>
           </div>
 
-          {/* Live token ticker */}
-          <a
-            href="https://pump.fun/coin/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-3 border border-border/50 px-4 py-2 transition-colors hover:bg-card/50"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em]">
-              $ELO live on Solana
-            </span>
-            <span className="font-mono text-[10px] tracking-[0.1em] text-muted-foreground">
-              &middot; agent earning autonomously &rarr;
-            </span>
-          </a>
-
-          <div className="mt-8 max-w-3xl">
-            <h1 className="text-4xl font-light leading-[1.1] tracking-tight sm:text-5xl lg:text-7xl">
-              A self-evolving<br />
-              AI agent that lives<br />
-              on <em className="font-serif italic">your machine.</em>
+          <div className="mt-8 max-w-6xl">
+            <h1 className="text-4xl font-light leading-[1.04] tracking-[-0.02em] sm:text-5xl lg:text-7xl xl:text-[5rem]">
+              Your own AI agent.<br />
+              It works while you sleep<br />
+              <em className="font-serif italic">and improves itself.</em>
             </h1>
           </div>
 
-          <p className="mt-10 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-            It is actually itself — an evolving identity, a knowledge base
-            it grows from every task, and an ego that grades its own performance
-            against measured outcomes.
+          <p className="mt-10 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+            ChatGPT and Claude wait for your next prompt. EloPhanto doesn&apos;t. Give it a goal and
+            it codes, browses, researches, and runs the long jobs on its own &ndash; then keeps
+            working while you sleep. It learns from every task and builds the tools it&apos;s missing,
+            so every week it does more and gets harder to replace. Run it on your own machine or in
+            the cloud; the agent is yours either way.
           </p>
 
-          <div className="mt-12 max-w-xl space-y-4">
+          <div className="mt-12 max-w-2xl space-y-4">
             <InstallCommand command="git clone https://github.com/elophanto/EloPhanto.git && cd EloPhanto && ./setup.sh" />
             <div className="grid grid-cols-3 gap-px border border-border/50 bg-border/50">
               <div className="bg-background px-5 pt-4 pb-5">
-                <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground mb-3">
-                  Terminal
-                </span>
+                <span className="mb-3 block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Terminal</span>
                 <InstallCommand command="./start.sh" />
               </div>
               <div className="bg-background px-5 pt-4 pb-5">
-                <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground mb-3">
-                  Web Dashboard
-                </span>
+                <span className="mb-3 block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Web Dashboard</span>
                 <InstallCommand command="./start.sh --web" />
               </div>
               <div className="bg-background px-5 pt-4 pb-5">
-                <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground mb-3">
-                  Daemon
-                </span>
+                <span className="mb-3 block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Daemon</span>
                 <InstallCommand command="./start.sh --daemon" />
               </div>
             </div>
           </div>
 
           <div className="mt-10 flex items-center gap-8">
-            <Link
-              href="/download"
-              className="font-mono text-xs uppercase tracking-[0.15em] border-b border-foreground pb-1 transition-opacity hover:opacity-60"
-            >
+            <Link href="/download" className="font-mono text-xs uppercase tracking-[0.15em] border-b border-foreground pb-1 transition-opacity hover:opacity-60">
               Get Started
             </Link>
-            <Link
-              href="/hub"
-              className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100"
-              style={{ opacity: 0.5 }}
-            >
-              Browse Skills
-            </Link>
+            <a href="https://github.com/elophanto/EloPhanto" target="_blank" rel="noopener noreferrer" className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100" style={{ opacity: 0.5 }}>
+              Star on GitHub &rarr;
+            </a>
           </div>
         </div>
 
-        {/* Bottom stats */}
-        <div className="mx-auto max-w-7xl px-6 pb-20 pt-32 sm:px-8 lg:px-12">
+        <Reveal as="div" className="mx-auto max-w-7xl px-6 pb-20 pt-28 sm:px-8 lg:px-12">
           <div className="flex flex-wrap gap-12 sm:gap-20">
             {stats.map((stat) => (
               <div key={stat.label}>
                 <span className="block font-mono text-3xl font-light tabular-nums sm:text-4xl">
-                  {stat.value}
+                  {stat.text ? stat.text : <CountUp value={stat.to ?? 0} suffix={stat.suffix} />}
                 </span>
-                <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  {stat.label}
-                </span>
+                <span className="mt-1 block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{stat.label}</span>
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      {/* Token */}
+      {/* The self-model – the lead differentiator */}
       <section className="border-t border-border/50">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
-          <div className="grid items-start gap-16 lg:grid-cols-2">
-            <div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-                Token &middot; Solana
-              </span>
-              <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
-                $ELO is live.<br />
-                <em className="font-serif italic">The agent is working.</em>
-              </h2>
-              <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Right now, on its own machine, the agent is autonomously trading,
-                shipping, and earning &mdash; with its own Solana wallet. It swaps
-                on Jupiter, runs DeFi positions, and reinvests what it makes.
-                No human in the loop.
-              </p>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-                The token is the agent&apos;s economy. You hold a piece of what it builds.
-              </p>
-
-              <div className="mt-10 flex flex-wrap items-center gap-6">
-                <a
-                  href="https://pump.fun/coin/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-xs uppercase tracking-[0.15em] border-b border-foreground pb-1 transition-opacity hover:opacity-60"
-                >
-                  Buy on pump.fun
-                </a>
-                <a
-                  href="https://dexscreener.com/solana/BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100"
-                  style={{ opacity: 0.5 }}
-                >
-                  Chart &rarr;
-                </a>
-              </div>
-            </div>
-
-            <div className="lg:pt-8">
-              <div className="border border-border/50">
-                <div className="border-b border-border/50 px-6 py-4">
-                  <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
-                    Contract Address
-                  </span>
-                  <span className="mt-2 block break-all font-mono text-xs sm:text-sm">
-                    BwUgJBQffm4HM49W7nsMphStJm4DbA5stuo4w7iwpump
-                  </span>
-                </div>
-                <div className="grid grid-cols-2 gap-px bg-border/50">
-                  <div className="bg-background px-6 py-5">
-                    <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
-                      Network
-                    </span>
-                    <span className="mt-2 block font-mono text-sm">Solana</span>
-                  </div>
-                  <div className="bg-background px-6 py-5">
-                    <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
-                      Status
-                    </span>
-                    <span className="mt-2 flex items-center gap-2 font-mono text-sm">
-                      <span className="relative flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/60" />
-                        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                      </span>
-                      Agent active
-                    </span>
-                  </div>
-                  <div className="bg-background px-6 py-5">
-                    <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
-                      Mode
-                    </span>
-                    <span className="mt-2 block font-mono text-sm">Autonomous</span>
-                  </div>
-                  <div className="bg-background px-6 py-5">
-                    <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">
-                      Mandate
-                    </span>
-                    <span className="mt-2 block font-mono text-sm">Make money</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* It is actually itself — Identity / Knowledge / Ego */}
-      <section className="border-t border-border/50">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <Reveal as="div" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
           <div className="mb-16 max-w-3xl">
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
               The difference
             </span>
             <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
-              It is <em className="font-serif italic">actually</em> itself.
+              Three layers, each <em className="font-serif italic">mechanically wired.</em>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-              Most &ldquo;AI agents&rdquo; are stateless prompts wrapped in a CLI &mdash;
-              same cold start every conversation. EloPhanto carries its own
-              identity, its own memory, and its own felt self-image. By the
-              third week of running, it isn&apos;t the same agent you started with.
+              The LLM never writes its own numbers. Confidence moves on real failure signals;
+              emotion runs on a substrate that decays over time. This is what makes the third
+              week of running feel different from the first &ndash; a self-image that has been
+              hurt, recovered, and revised.
             </p>
           </div>
 
@@ -322,150 +204,229 @@ export default function HomePage() {
             {[
               {
                 tag: "Identity",
-                hook: "it knows who it is",
-                body: "Values, beliefs, and capabilities discovered through self-reflection. After every task it asks: did this confirm or contradict what I claimed about myself? Updates are versioned and audited.",
-                file: "nature.md",
-              },
-              {
-                tag: "Knowledge",
-                hook: "it remembers everything",
-                body: "Persistent markdown + vector embeddings. Lessons get extracted automatically after each task and retrieved by future similar work. User corrections become permanent. Memory lives on disk you control — not in someone else's cloud.",
-                file: "knowledge/",
+                hook: "who it claims to be",
+                body: "Values, beliefs, and capabilities discovered through reflection, written to a nature.md the agent edits over time. You name it in the setup wizard; the rename propagates end-to-end across DB, knowledge, dashboard, and LLM context.",
+                cite: "nature.md · docs/17-IDENTITY",
               },
               {
                 tag: "Ego",
-                hook: "it grades itself",
-                body: "First-person inner monologue. Pride and shame anchored to measured outcomes — failures hit harder than successes. Prior-self continuity: each recompute references the previous one. Competitors can't show this because their agents don't have one.",
-                file: "ego.md",
+                hook: "how reality graded that claim",
+                body: "Per-capability confidence moved by three real failure channels: tool outcomes, verification PASS/FAIL, and a 13-rule user-correction detector. Failures hit harder than successes; unused capabilities decay. Grounded in Higgins' Self-Discrepancy Theory.",
+                cite: "core/ego.py · docs/17",
+              },
+              {
+                tag: "Affect",
+                hook: "what it's feeling right now",
+                body: "State-level emotion on a PAD substrate with OCC appraisal labels. Three channels decay over minutes-to-hours. Corrections fire frustration, checkpoints fire pride. Biases router temperature, prompt tone, and risk appetite.",
+                cite: "core/affect.py · docs/69-AFFECT",
               },
             ].map((block) => (
               <div key={block.tag} className="bg-background p-8 sm:p-10">
-                <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  {block.tag}
-                </span>
-                <h3 className="mt-4 text-xl font-light leading-snug sm:text-2xl">
-                  {block.hook}
-                </h3>
-                <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                  {block.body}
-                </p>
-                <span className="mt-8 block font-mono text-[10px] tracking-[0.1em] text-muted-foreground/60">
-                  &rarr; {block.file}
-                </span>
+                <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{block.tag}</span>
+                <h3 className="mt-4 text-xl font-light leading-snug sm:text-2xl">{block.hook}</h3>
+                <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{block.body}</p>
+                <span className="mt-8 block font-mono text-[10px] tracking-[0.1em] text-muted-foreground/50">&rarr; {block.cite}</span>
               </div>
             ))}
           </div>
 
-          <p className="mt-10 max-w-2xl font-mono text-xs leading-relaxed text-muted-foreground">
-            By the third week of running, it isn&apos;t the same agent you started with.
+          <p className="mt-8 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            Ego is who the agent has <span className="text-foreground">become</span>; affect is who it{" "}
+            <span className="text-foreground">is right now</span>. Built on{" "}
+            <a href="https://www.columbia.edu/cu/psychology/higgins/papers/HIGGINS=PSYCH%20REVIEW%201987.pdf" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-foreground">Higgins (1987)</a>,{" "}
+            <a href="https://en.wikipedia.org/wiki/PAD_emotional_state_model" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-foreground">Mehrabian&apos;s PAD</a>, and{" "}
+            <a href="https://en.wikipedia.org/wiki/Ortony,_Clore,_and_Collins_model" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-foreground">OCC appraisal</a>. To our knowledge, no other open-source autonomous agent ships all of this.
           </p>
-        </div>
+
+          {/* Live widget */}
+          <div className="mt-14">
+            <div className="mb-5 flex items-center justify-between">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                The self-model, live
+              </span>
+              <span className="font-mono text-[10px] tracking-[0.1em] text-muted-foreground/50">
+                as rendered in the dashboard
+              </span>
+            </div>
+            <Reveal><SelfModelWidget /></Reveal>
+          </div>
+        </Reveal>
       </section>
 
-      {/* Features */}
+      {/* Product proof */}
       <section className="border-t border-border/50">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
-          <div className="mb-16">
+        <Reveal as="div" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="mb-16 max-w-3xl">
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-              Capabilities
+              The product
             </span>
+            <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
+              This is the <em className="font-serif italic">actual</em> software.
+            </h2>
+            <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+              A terminal chat and a real-time web dashboard, shipping today. Watch the mind think,
+              browse the knowledge it built, audit every tool call, and inspect the ego and affect
+              for yourself.
+            </p>
           </div>
+          <Reveal><ProductShowcase /></Reveal>
+        </Reveal>
+      </section>
 
+      {/* How it grows */}
+      <section className="border-t border-border/50">
+        <Reveal as="div" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="mb-16 max-w-3xl">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              How it grows
+            </span>
+            <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
+              Day 1 to week 3.
+            </h2>
+            <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+              EloPhanto starts from scratch: no identity, no knowledge, no calibrated confidence.
+              You operate it manually at first; every interaction feeds the layers underneath.
+            </p>
+          </div>
           <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature) => (
-              <div
-                key={feature.label}
-                className="bg-background p-6 sm:p-8"
-              >
-                <h3 className="font-mono text-xs uppercase tracking-[0.1em]">
-                  {feature.label}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {feature.detail}
-                </p>
+            {[
+              { phase: "Day 1", title: "Blank slate", body: "You name it. Identity writes its first nature.md. 200+ tools unused, ego empty, ask_always mode – you approve everything." },
+              { phase: "Week 1", title: "You drive", body: "Small tasks, you correct mistakes. Every “no” / “stop” / “didn't work” is caught by the correction detector and lands as a humbling event." },
+              { phase: "Week 2", title: "Loops kick in", body: "Lessons auto-retrieve on similar tasks; skills auto-load; verification feeds PASS/FAIL into ego. Flip to smart_auto and safe tools start auto-approving." },
+              { phase: "Week 3+", title: "Shape emerges", body: "Goals run across sessions. The autonomous mind handles work between messages. Specialist clones take workstreams. You're the operator, not the driver." },
+            ].map((step) => (
+              <div key={step.phase} className="bg-background p-6 sm:p-8">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{step.phase}</span>
+                <h3 className="mt-3 font-mono text-xs uppercase tracking-[0.1em]">{step.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
+      </section>
+
+      {/* Capabilities */}
+      <section className="border-t border-border/50">
+        <Reveal as="div" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="mb-16">
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Capabilities</span>
+          </div>
+          <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-4">
+            {features.map((feature) => (
+              <div key={feature.label} className="bg-background p-6 sm:p-8">
+                <h3 className="font-mono text-xs uppercase tracking-[0.1em]">{feature.label}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{feature.detail}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* One entity, not a persona stable */}
+      <section className="border-t border-border/50">
+        <Reveal as="div" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+          <div className="grid items-start gap-16 lg:grid-cols-2">
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+                The foundation
+              </span>
+              <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
+                One entity.<br /><em className="font-serif italic">Not a persona stable.</em>
+              </h2>
+              <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
+                Other &ldquo;agent platforms&rdquo; host N character personas behind one engine &ndash;
+                swap the SOUL.md, swap the bot. EloPhanto is structurally different: this
+                installation <span className="text-foreground">is</span> one agent. One identity, one
+                wallet, one self-model grown over weeks. When you want more, you spawn another full
+                EloPhanto &ndash; separate vault, separate wallet, separate self-model. Peers, not personas.
+              </p>
+              <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+                It gets harder to replace the longer it runs. That&apos;s the architecture, and
+                everything else stands on it.
+              </p>
+            </div>
+            <div className="lg:pt-4">
+              <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50">
+                {[
+                  { k: "Ego", v: "accumulates per-capability confidence – for whom, if the persona is swappable per request?" },
+                  { k: "Affect", v: "carries state between calls – whose frustration, whose pride?" },
+                  { k: "One wallet", v: "builds on-chain reputation – five personas sharing one wallet is dilution." },
+                  { k: "Calibration", v: "tracks a Brier score for this predictor – meaningless for a rotating set of facades." },
+                  { k: "Peer trust", v: "pins known-hosts per PeerID – multiple personas behind one key would break it." },
+                ].map((row) => (
+                  <div key={row.k} className="bg-background px-6 py-4">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.15em]">{row.k}</span>
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{row.v}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </section>
 
       {/* Use Cases Teaser */}
       <section className="border-t border-border/50">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <Reveal as="div" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
           <div className="mb-16">
-            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-              Use Cases
-            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Use Cases</span>
           </div>
-
           <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { number: "01", title: "Autonomous Web Presence", summary: "You wake up to new followers, posted content, and active community profiles it built overnight." },
-              { number: "02", title: "Development Team", summary: "Give it a feature spec. Get back reviewed, tested code from multiple agents that challenged each other's work." },
-              { number: "03", title: "Self-Building", summary: "Ask it to do something it can't. Come back to find it built the tool, tested it, and already used it." },
-              { number: "04", title: "Cross-Platform Intel", summary: "Ask a question that needs email, web, and documents. Get one answer with sources." },
-              { number: "05", title: "Revenue Operations", summary: "It finds freelance gigs, applies, delivers the work, and collects USDC. You check the wallet." },
-              { number: "06", title: "Background Mind", summary: "Close your laptop. It keeps working — thinking, executing, improving. Open it tomorrow to results." },
+              { number: "01", title: "Ship a SaaS overnight", summary: "“Build me an invoice SaaS.” It validates the market, plans the MVP, spawns coding agents in isolated worktrees, deploys to Vercel + Supabase. You approve at each gate." },
+              { number: "02", title: "Development team", summary: "Give it a feature spec. Get back reviewed, tested code from multiple agents – Claude Code, Codex, Gemini – that challenged each other's work." },
+              { number: "03", title: "Self-building", summary: "Ask it to do something it can't. Come back to find it built the tool, tested it, and already used it. Next time it just knows how." },
+              { number: "04", title: "Cross-platform intel", summary: "Ask a question that needs email, web, and documents. Get one answer with sources, gathered across channels." },
+              { number: "05", title: "Persistent specialists", summary: "“I need ongoing marketing and research.” It spawns clones with their own mind, vault, and schedule. Teach through feedback; trust-scoring auto-approves the good ones." },
+              { number: "06", title: "Background mind", summary: "Close your laptop. The daemon keeps the mind thinking, executing, improving. Open it tomorrow to results." },
             ].map((uc) => (
               <div key={uc.number} className="bg-background p-6 sm:p-8">
-                <span className="font-mono text-2xl font-extralight tabular-nums text-border">
-                  {uc.number}
-                </span>
-                <h3 className="mt-3 font-mono text-xs uppercase tracking-[0.1em]">
-                  {uc.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {uc.summary}
-                </p>
+                <span className="font-mono text-2xl font-extralight tabular-nums text-border">{uc.number}</span>
+                <h3 className="mt-3 font-mono text-xs uppercase tracking-[0.1em]">{uc.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{uc.summary}</p>
               </div>
             ))}
           </div>
-
           <div className="mt-10">
-            <Link
-              href="/use-cases"
-              className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100"
-              style={{ opacity: 0.5 }}
-            >
+            <Link href="/use-cases" className="font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground transition-opacity hover:opacity-100" style={{ opacity: 0.5 }}>
               View all use cases &rarr;
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       {/* Architecture */}
       <section className="border-t border-border/50">
-        <div className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
+        <Reveal as="div" className="mx-auto max-w-7xl px-6 py-24 sm:px-8 sm:py-32 lg:px-12">
           <div className="grid items-start gap-16 lg:grid-cols-2">
             <div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-                Architecture
-              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Architecture</span>
               <h2 className="mt-6 text-3xl font-light leading-tight sm:text-4xl">
-                Your machine.<br />Your data. Its brain.
+                You stay <em className="font-serif italic">in control.</em>
               </h2>
               <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
-                Everything stays local. It thinks through the best AI model for each task,
-                acts across all your channels, and remembers what it learned — permanently.
+                Run it on your own machine or in the cloud. One WebSocket gateway, one set of
+                sessions across every channel, and a permission gate on every risky action.
+                Nothing happens on its own until you say so.
               </p>
             </div>
-
-            {/* Architecture Diagram */}
-            <div className="flex flex-col items-center lg:pt-8">
+            <div className="flex flex-col items-center lg:pt-4">
               <div className="w-full max-w-md space-y-0">
-                <ArchLayer label="Channels" sublabel="CLI &middot; Web &middot; VS Code &middot; Telegram &middot; Discord &middot; Slack" />
+                <ArchLayer label="Channels" sublabel="CLI · Web · VS Code · Telegram · Discord · Slack" />
                 <VerticalLine />
-                <ArchLayer label="Brain" sublabel="Identity &middot; Ego &middot; Autonomous mind &middot; 7 LLM providers" />
+                <ArchLayer label="Gateway · Permissions" sublabel="One WebSocket · unified sessions · gate every risky action" />
                 <VerticalLine />
-                <ArchLayer label="Hands" sublabel="170 tools &middot; Real Chrome &middot; Desktop GUI &middot; MCP &middot; 170 skills" />
+                <ArchLayer label="Self-Model" sublabel="Identity · Ego (Higgins) · Affect (PAD + OCC)" />
                 <VerticalLine />
-                <ArchLayer label="Team &middot; Sandbox" sublabel="Cloned specialists &middot; Sandboxed kids in hardened Docker" />
+                <ArchLayer label="Autonomous Mind · RLM" sublabel="Background think loop · recursive cognition" />
                 <VerticalLine />
-                <ArchLayer label="Daemon" sublabel="launchd / systemd &middot; OS keychain vault &middot; Auto-restart" muted />
+                <ArchLayer label="Tools · Skills · Team" sublabel="200+ tools · 177+ skills · cloned specialists · sandboxed kids" />
+                <VerticalLine />
+                <ArchLayer label="Decentralized Peers" sublabel="libp2p · Ed25519 · DHT · hole-punching" muted />
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </div>
   )
