@@ -26,7 +26,7 @@ export function InstallCommand({ command, label }: InstallCommandProps) {
       )}
       <div className="flex items-center border border-border/50 bg-card">
         <div className="flex-1 overflow-x-auto px-5 py-3.5">
-          <code className="font-mono text-sm text-foreground/70">
+          <code className="whitespace-nowrap font-mono text-sm text-foreground/70">
             <span className="select-none text-muted-foreground/40">$ </span>
             {command}
           </code>

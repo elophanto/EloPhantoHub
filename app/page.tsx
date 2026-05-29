@@ -136,7 +136,7 @@ export default function HomePage() {
 
           <div className="mt-12 max-w-2xl space-y-4">
             <InstallCommand command="git clone https://github.com/elophanto/EloPhanto.git && cd EloPhanto && ./setup.sh" />
-            <div className="grid grid-cols-3 gap-px border border-border/50 bg-border/50">
+            <div className="grid grid-cols-1 gap-px border border-border/50 bg-border/50 sm:grid-cols-3">
               <div className="bg-background px-5 pt-4 pb-5">
                 <span className="mb-3 block font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground">Terminal</span>
                 <InstallCommand command="./start.sh" />
